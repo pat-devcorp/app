@@ -1,18 +1,5 @@
 #!/bin/bash
-commit_msg=$(git rev-parse --abbrev-ref HEAD)
-commit_msg_pattern="^(feat|fix|docs|style|refactor|test|chore)(\([a-z]+\))?: .{10,}$"
-
-echo "All arguments: $1"
-echo "Executing before commit"
-
-# Check if commit message matches the pattern
-if ! [[ "$commit_msg" =~ $commit_msg_pattern ]]; then
-    echo "COMMIT REJECTED: Commit message does not follow GitHub conventional commit format."
-    echo "Expected format: <type>(<scope>): <description>"
-    echo "Example: feat(ui): add button component"
-    exit 1
-fi
-
+echo "Code Hook!"
 # Run Dart fix to automatically apply fixes
 echo "Running Dart fix..."
 if ! output=$(dart fix --apply); then
