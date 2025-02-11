@@ -6,10 +6,10 @@ class AddAccountDialog extends StatefulWidget {
   const AddAccountDialog({super.key});
 
   @override
-  _AddAccountDialogState createState() => _AddAccountDialogState();
+  AddAccountDialogState createState() => AddAccountDialogState();
 }
 
-class _AddAccountDialogState extends State<AddAccountDialog> {
+class AddAccountDialogState extends State<AddAccountDialog> {
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _userController = TextEditingController();
 

@@ -11,10 +11,10 @@ class AccountableAccountPage extends StatefulWidget {
   const AccountableAccountPage({super.key});
 
   @override
-  _AccountableAccountPageState createState() => _AccountableAccountPageState();
+  AccountableAccountPageState createState() => AccountableAccountPageState();
 }
 
-class _AccountableAccountPageState extends State<AccountableAccountPage> {
+class AccountableAccountPageState extends State<AccountableAccountPage> {
   final List<AccountableAccount> _accountableAccounts = [];
 
   @override
@@ -34,7 +34,6 @@ class _AccountableAccountPageState extends State<AccountableAccountPage> {
         _accountableAccounts.addAll(accounts);
       });
     } catch (e) {
-      print("Error fetching accounts: $e");
       _accountableAccounts.addAll([
         AccountableAccount(accountableAccountId: 'mock1', appUserId: 'user1'),
         AccountableAccount(accountableAccountId: 'mock2', appUserId: 'user2'),

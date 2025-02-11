@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   json_annotation: ^4.9.0
   dio: ^5.8.0+1
+  logger: ^2.5.0
 
   retrofit: any
 dev_dependencies:
@@ -51,6 +52,7 @@ dev_dependencies:
   retrofit_generator: ^9.1.7
   build_runner: ^2.4.14
   json_serializable: ^6.9.3
+  mockito: ^5.3.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
