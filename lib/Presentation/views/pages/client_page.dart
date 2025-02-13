@@ -1,3 +1,4 @@
+import 'package:app/Presentation/router/router.dart';
 import 'package:app/Presentation/views/widget/button_widgets.dart';
 import 'package:app/Presentation/views/widget/colors_widgets.dart';
 import 'package:app/Presentation/views/widget/input_widgets.dart';
@@ -34,6 +35,7 @@ class _ClientPageState extends State<ClientPage> {
           duration: Duration(seconds: 2),
         ),
       );
+      PageRouter.goToPage(context, page: Pages.welcome);
     }
   }
 
