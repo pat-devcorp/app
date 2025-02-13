@@ -51,9 +51,5 @@ def login():
         print(f"An error occurred: {e}") #Good practice to log errors
         return jsonify({"message": "An error occurred"}), 500  # 500 Internal Server Error
     
-def run_flask():
-    app.run(host='0.0.0.0', debug=True, port=int(os.environ.get('PORT', 9090)))
-
-if __name__ == '__main__':
-    flask_process = multiprocessing.Process(target=run_flask)
-    flask_process.start()
+if __name__ == "__main__":
+    app.run(debug=True, port=9090)
