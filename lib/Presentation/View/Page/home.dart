@@ -20,7 +20,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text('Bienvenido $userName'),
         centerTitle: true,
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: const Icon(Icons.person, color: Colors.white),
