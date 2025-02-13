@@ -1,11 +1,10 @@
-import '../../../Application/State/authentication_state.dart';
-import '../../../Application/UseCase/authentication_use_case.dart';
-import '../../router/router.dart';
-import '../../views/widget/colors_widgets.dart';
-import '../../views/widget/input_widgets.dart';
-import '../../views/widget/texts_widgets.dart';
-import '../../router/pages.dart';
-
+import 'package:app/Application/State/authentication_state.dart';
+import 'package:app/Application/UseCase/authentication_use_case.dart';
+import 'package:app/Presentation/router/pages.dart';
+import 'package:app/Presentation/router/router.dart';
+import 'package:app/Presentation/views/widget/colors_widgets.dart';
+import 'package:app/Presentation/views/widget/input_widgets.dart';
+import 'package:app/Presentation/views/widget/texts_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -58,64 +57,58 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     });
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 100),
-              Center(
-                child: CustomText(
-                  text: 'Iniciar Sesión',
-                  type: TextType.title2,
-                  color: AppColors.textBlack,
-                ),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomText(
+              text: 'Iniciar Sesión',
+              type: TextType.title2,
+            ),
+            SizedBox(height: 20),
+            Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
               ),
-              SizedBox(height: 20),
-              Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        InputWidgets(
-                          controller: _usernameController,
-                          label: 'Usuario',
-                          icon: Icons.person,
+              child: Padding(
+                padding: EdgeInsets.all(20.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      InputWidgets(
+                        controller: _usernameController,
+                        label: 'Usuario',
+                        icon: Icons.person,
+                      ),
+                      SizedBox(height: 10),
+                      InputWidgets(
+                        controller: _passwordController,
+                        label: 'Contraseña',
+                        icon: Icons.lock,
+                        //obscureText: true,
+                      ),
+                      SizedBox(height: 20),
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: authState == AuthenticationState.loading
+                              ? null
+                              : () => authNotifier.login(context, _usernameController.text, _passwordController.text),
+                          child: authState == AuthenticationState.loading
+                              ? const CircularProgressIndicator()
+                              : const Text("Login"),
                         ),
-                        SizedBox(height: 10),
-                        InputWidgets(
-                          controller: _passwordController,
-                          label: 'Contraseña',
-                          icon: Icons.lock,
-                          //obscureText: true,
-                        ),
-                        SizedBox(height: 20),
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: authState == AuthenticationState.loading
-                                ? null
-                                : () => authNotifier.login(context, _usernameController.text, _passwordController.text),
-                            child: authState == AuthenticationState.loading
-                                ? const CircularProgressIndicator()
-                                : const Text("Login"),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
