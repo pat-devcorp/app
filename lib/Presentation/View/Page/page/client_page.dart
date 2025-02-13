@@ -1,43 +1,44 @@
-import 'package:app/Application/State/client_state.dart';
-import 'package:app/Application/UseCase/client_use_case.dart';
 import 'package:app/Presentation/View/Page/widget/button_widgets.dart';
 import 'package:app/Presentation/View/Page/widget/colors_widgets.dart';
 import 'package:app/Presentation/View/Page/widget/input_widgets.dart';
 import 'package:app/Presentation/View/Page/widget/texts_widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
-class ClientPage extends ConsumerStatefulWidget {
+
+class ClientPage extends StatefulWidget {
   const ClientPage({super.key});
 
   @override
-  ConsumerState<ClientPage> createState() => _ClientPageState();
+  State<ClientPage> createState() => _ClientPageState();
 }
 
-class _ClientPageState extends ConsumerState<ClientPage> { 
+class _ClientPageState extends State<ClientPage> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _nameController      = TextEditingController();
-  final TextEditingController _lastNameController  = TextEditingController();
+  final TextEditingController _nombreController    = TextEditingController();
+  final TextEditingController _apellidoController  = TextEditingController();
   final TextEditingController _dniController       = TextEditingController();
-  final TextEditingController _addressController   = TextEditingController();
+  final TextEditingController _direccionController = TextEditingController();
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      ref.read(clientProvider.notifier).registerClient(
-            context,
-            name      : _nameController.text,
-            lastName  : _lastNameController.text,
-            dni       : _dniController.text,
-            address   : _addressController.text,
-          );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: CustomText(
+            text: 'Registro exitoso',
+            type: TextType.normal,
+            color: AppColors.whiteBackground,
+          ),
+          backgroundColor: AppColors.mainGreen,
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(seconds: 2),
+        ),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final clientState = ref.watch(clientProvider);
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -61,19 +62,47 @@ class _ClientPageState extends ConsumerState<ClientPage> {
                   child: Form(
                     key: _formKey,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        InputWidgets(controller: _nameController, label: 'Nombre', icon: Icons.person),
+                        InputWidgets(
+                          controller: _nombreController,
+                          label: 'Nombre',
+                          icon: Icons.person,
+                        ),
                         SizedBox(height: 10),
-                        InputWidgets(controller: _lastNameController, label: 'Apellido', icon: Icons.person_outline),
+                        InputWidgets(
+                          controller: _apellidoController,
+                          label: 'Apellido',
+                          icon: Icons.person_outline,
+                        ),
                         SizedBox(height: 10),
-                        InputWidgets(controller: _dniController, label: 'DNI', icon: Icons.credit_card),
+                        InputWidgets(
+                          controller: _dniController,
+                          label: 'DNI',
+                          icon: Icons.credit_card,
+                          keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor ingrese el DNI';
+                            }
+                            if (value.length < 7 || value.length > 8) {
+                              return 'DNI debe tener 7 u 8 dígitos';
+                            }
+                            return null;
+                          },
+                        ),
                         SizedBox(height: 10),
-                        InputWidgets(controller: _addressController, label: 'Dirección', icon: Icons.location_on), 
-                        SizedBox(height: 20),
+                        InputWidgets(
+                          controller: _direccionController,
+                          label: 'Dirección',
+                          icon: Icons.location_on,
+                        ),
+                        SizedBox(height: 20), 
                         Center(
-                          child: clientState == ClientState.loading
-                              ? CircularProgressIndicator()
-                              : GreenButton(text: 'Registrar', onPressed: _submitForm),
+                          child: GreenButton(
+                            text: 'Registrar',
+                            onPressed: _submitForm,
+                          ),
                         ),
                       ],
                     ),
