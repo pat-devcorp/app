@@ -110,6 +110,13 @@ class _ClientPageState extends State<ClientPage> {
                             onPressed: _submitForm,
                           ),
                         ),
+                        SizedBox(height: 20), 
+                        Center(
+                          child: OnlyText(
+                            text: 'Cancelar',
+                            onPressed: () => PageRouter.goToPage(context, page: Pages.welcome),
+                          ),
+                        ),
                       ],
                     ),
                   ),

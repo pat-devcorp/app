@@ -20,20 +20,14 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: CustomText(text: 'Bienvenido $userName', type: TextType.title2),
-        centerTitle: true,
-        backgroundColor: AppColors.mainGreen,
+        backgroundColor: Colors.transparent,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.logout_outlined, color: Colors.white),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginPage(),
-                ),
-              );
-            },
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: IconButton(
+              icon: const Icon(Icons.logout_outlined, color: AppColors.mainGreen, size: 30),
+              onPressed: () => PageRouter.goToPage(context, page: Pages.home),
+            ),
           ),
         ],
       ),
