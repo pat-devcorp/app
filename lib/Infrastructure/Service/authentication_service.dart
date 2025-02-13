@@ -1,12 +1,22 @@
+import 'package:app/Domain/Service/iauthentication_service.dart';
+
+import '../../Domain/Service/authentication_service_state.dart';
+import '../../Domain/Service/response.dart';
+import 'api_route.dart';
+
 import 'dart:developer';
-import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http show Response, post;
+import 'package:http/http.dart' as http show post;
 import 'dart:convert';
 
-class AuthenticationService {
-  static Future<http.Response> login(BuildContext context,
-      {required String email, required String password}) async {
-    final url = Uri.parse('http://localhost:9090/login'); // Your API endpoint
+class AuthenticationService implements IAuthenticationService {
+  String apiHost;
+
+  AuthenticationService(this.apiHost);
+
+  @override
+  Future<Response> login({required String email, required String password}) async {
+    final url = Uri.parse(apiHost + ApiRoute.login.message);
+
     try {
       final response = await http.post(
         url,
@@ -14,24 +24,39 @@ class AuthenticationService {
         body: jsonEncode({'email': email, 'password': password}),
       );
 
-      try {
-        final decodedBody = jsonDecode(response.body); // Decode JSON
-        if (response.statusCode == 200) {
-          String message = decodedBody['message']; // Access the 'message' field
-          log('Message from server: $message');
-          return response; // Return the response object
-        } else {
-          // Retornar la respuesta incluso si el status code no es 200
-          log('Error: ${response.statusCode} - ${response.body}');
-          return response;
-        }
-      } catch (e) {
-        log('Error decoding JSON: $e');
-        return http.Response('Error decoding JSON', 500);
+      final Map<String, dynamic> decodedBody = jsonDecode(response.body);
+      final AuthenticationServiceState state = _mapStatusCodeToState(response.statusCode);
+
+      log('🔄 Response: ${response.statusCode} - ${decodedBody['message'] ?? state.message}');
+      if (response.statusCode != 200) {
+        throw Exception(state.message);
       }
+
+      return Response(
+        success: true,
+        data: decodedBody,
+      );
     } catch (e) {
-      log('Error during login request: $e');
-      return http.Response('Error during login request', 500);
+      log('⚠️ Error during login request: $e');
+      return Response(
+        success: false,
+        data: {'message': e.toString()},
+      );
+    }
+  }
+
+  static AuthenticationServiceState _mapStatusCodeToState(int statusCode) {
+    switch (statusCode) {
+      case 200:
+        return AuthenticationServiceState.success;
+      case 400:
+        return AuthenticationServiceState.invalidArguments;
+      case 401:
+        return AuthenticationServiceState.invalidCredentials;
+      case 500:
+        return AuthenticationServiceState.serverError;
+      default:
+        return AuthenticationServiceState.notCatch;
     }
   }
 }

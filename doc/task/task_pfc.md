@@ -8,6 +8,7 @@
 ### task
 - [PFC-130225-?] create login
   - [130225] domain auth
-  - [] service auth
-  - [] use case auth
-  - [] ui login
+  - [130225] domain auth test
+  - [130225] service auth
+  - [130225] use case auth
+  - [130225] ui login

@@ -1,6 +1,6 @@
+import '../../Application/State/client_state.dart';
+import '../../Infrastructure/Service/client_service.dart';
 
-import 'package:app/Application/State/client_state.dart';
-import 'package:app/Infrastructure/Service/client_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

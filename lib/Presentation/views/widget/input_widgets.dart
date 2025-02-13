@@ -2,13 +2,13 @@ import 'package:app/Presentation/views/widget/colors_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class InputWidgets extends StatelessWidget {
   final TextEditingController controller;
   final String label;
   final IconData icon;
   final TextInputType keyboardType;
   final String? Function(String?)? validator;
+  final int? maxLength;
 
   const InputWidgets({
     super.key,
@@ -17,6 +17,7 @@ class InputWidgets extends StatelessWidget {
     required this.icon,
     this.keyboardType = TextInputType.text,
     this.validator,
+    this.maxLength,
   });
 
   @override
@@ -24,6 +25,7 @@ class InputWidgets extends StatelessWidget {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
+      maxLength: maxLength,
       decoration: InputDecoration(
         labelText: label,
         labelStyle: GoogleFonts.nunito(color: AppColors.textGray, fontSize: 16),
@@ -44,14 +46,17 @@ class InputWidgets extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: Colors.red, width: 2),
         ),
+        counterText: "",
       ),
-      validator: validator ??
-          (value) {
-            if (value == null || value.isEmpty) {
-              return 'Por favor ingrese $label';
-            }
-            return null;
-          },
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Por favor ingrese $label';
+        }
+        if (maxLength != null && value.length > maxLength!) {
+          return 'Máximo $maxLength caracteres permitidos';
+        }
+        return null;
+      },
     );
   }
 }
