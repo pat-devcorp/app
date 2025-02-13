@@ -1,3 +1,6 @@
+import 'package:app/Presentation/View/Page/login.dart';
+import 'package:app/Presentation/View/Page/page/client_page.dart';
+import 'package:app/Presentation/View/Page/widget/button_widgets.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -8,7 +11,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // Nombre del usuario (puedes cambiarlo dinámicamente)
+
   final String userName = "Kevin";
 
   @override
@@ -17,11 +20,24 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text('Bienvenido $userName'),
         centerTitle: true,
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.green,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.person, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LoginPage(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: Center(
         child: SizedBox(
-          width: MediaQuery.of(context).size.width ,// Ajusta el ancho del Card
+          width: MediaQuery.of(context).size.width ,
           height: MediaQuery.of(context).size.width,
           child: Card(
             elevation: 5,
@@ -111,24 +127,16 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                   const SizedBox(height: 50), // Espacio entre la tabla y el botón
-                  ElevatedButton(
+                  GreenButton(
+                    text: 'Ir a Registrar',
                     onPressed: () {
-                      // Aquí puedes agregar la funcionalidad para registrar
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Registro en proceso...')),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ClientPage(),
+                        ),
                       );
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent,
-                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: const Text(
-                      'Ir a Registrar',
-                      style: TextStyle(fontSize: 18, color: Colors.white),
-                    ),
                   ),
                 ],
               ),
