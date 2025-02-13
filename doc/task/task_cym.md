@@ -8,5 +8,5 @@
 ### task
 - [CYM-130225-?] manage project
   - [130225] project structure
-  - [] project routes
-  - [] proyect integration
+  - [130225] project routes
+  - [130225] proyect integration
