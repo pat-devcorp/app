@@ -1,8 +1,9 @@
-import 'package:app/Presentation/views/pages/login.dart';
-import 'package:app/Presentation/router/router.dart';
-import 'package:app/Presentation/views/widget/button_widgets.dart';
-import 'package:app/Presentation/views/widget/colors_widgets.dart';
-import 'package:app/Presentation/views/widget/texts_widgets.dart';
+import '../../router/pages.dart';
+import '../../router/router.dart';
+import '../../views/widget/button_widgets.dart';
+import '../../views/widget/colors_widgets.dart';
+import '../widget/texts_widgets.dart';
+
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {

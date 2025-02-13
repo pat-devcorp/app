@@ -1,10 +1,11 @@
-import 'package:app/Application/State/authentication_state.dart';
-import 'package:app/Application/UseCase/authentication_use_case.dart';
-import 'package:app/Presentation/router/router.dart';
-import 'package:app/Presentation/views/widget/button_widgets.dart';
-import 'package:app/Presentation/views/widget/colors_widgets.dart';
-import 'package:app/Presentation/views/widget/input_widgets.dart';
-import 'package:app/Presentation/views/widget/texts_widgets.dart';
+import '../../../Application/State/authentication_state.dart';
+import '../../../Application/UseCase/authentication_use_case.dart';
+import '../../router/router.dart';
+import '../../views/widget/colors_widgets.dart';
+import '../../views/widget/input_widgets.dart';
+import '../../views/widget/texts_widgets.dart';
+import '../../router/pages.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

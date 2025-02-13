@@ -1,115 +1,51 @@
-import 'package:app/Presentation/views/pages/home.dart';
-import 'package:app/Presentation/views/pages/login.dart';
-import 'package:app/Presentation/views/pages/client_page.dart';
-import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
+import 'page_data.dart';
+import 'pages.dart';
+import 'web/html_data.dart';
+import '../../Presentation/views/pages/home.dart';
+import '../../Presentation/views/pages/login.dart';
+import '../../Presentation/views/pages/client_page.dart';
 
-enum Pages {
-  home,
-  welcome,
-  client
-}
+import 'package:page_transition/page_transition.dart';
+import 'package:flutter/material.dart';
 
 class PageRouter {
-  static List<PageData> get _pageList => [
-
-    const PageData(
-      key     : Pages.home,
-      unbound : true,
-      page    : LoginPage(),
-      html    : HTMLData( route: '/home/' ),
+  static final Map<Pages, PageData> _pageMap = {
+    Pages.home: PageData(
+      key: Pages.home,
+      unbound: true,
+      page: const LoginPage(),
+      html: const HTMLData(route: '/home/'),
     ),
-
-    const PageData(
-      key     : Pages.welcome,
-      unbound : true,
-      page    : Home(),
-      html    : HTMLData( route: '/welcome/' ),
+    Pages.welcome: PageData(
+      key: Pages.welcome,
+      unbound: true,
+      page: const Home(),
+      html: const HTMLData(route: '/welcome/'),
     ),
-
-    const PageData(
-      key     : Pages.client,
-      unbound : false,
-      page    : ClientPage(),
-      html    : HTMLData( route: '/client/' ),
+    Pages.client: PageData(
+      key: Pages.client,
+      unbound: false,
+      page: const ClientPage(),
+      html: const HTMLData(route: '/client/'),
     ),
-  ];
+  };
 
-  static PageTransitionType transition = PageTransitionType.fade;
   static const Duration duration = Duration(milliseconds: 300);
+  static PageTransitionType defaultTransition = PageTransitionType.fade;
 
-  static void goToPage(BuildContext context, {required Pages page}) {
-    PageData p = _pageList.singleWhere((e) => e.key == page, orElse: ()=> _pageList[0]);
-    p.unbound ? p.pushOver(context) : p.push(context);
+  static void goToPage(BuildContext context,
+      {required Pages page, PageTransitionType? transition}) {
+    final PageData? pageData = _pageMap[page];
+
+    if (pageData == null) {
+      debugPrint('⚠️ Page not found: $page');
+      return;
+    }
+
+    final transitionType = transition ?? defaultTransition;
+
+    pageData.unbound
+        ? pageData.pushOver(context, transitionType)
+        : pageData.push(context, transitionType);
   }
-}
-
-class PageData {
-  final bool     unbound;
-  final Pages    key;
-  final Widget   page;
-  final HTMLData html;
-
-  const PageData({
-    this.unbound = false,
-    this.key     = Pages.home,
-    this.page    = const SizedBox.shrink(),
-    this.html    = const HTMLData(),
-  });
-
-  push(BuildContext context) => Navigator.of(context).push(
-    PageTransition(
-      type  : PageTransitionType.fade,
-      child : page
-    )
-  );
-
-  pushOver(BuildContext context) => Navigator.of(context).pushAndRemoveUntil(
-    PageTransition(
-      type  : PageTransitionType.fade,
-      child : page,
-      isIos : Theme.of(context).platform == TargetPlatform.iOS
-    ),
-    (route) => false
-  );
-}
-
-
-class HTMLData{
-  final String     route;
-  final HTMLHeader header;
-  final HTMLBody   body;
-  const HTMLData({
-    this.route  = "",
-    this.header = const HTMLHeader(),
-    this.body   = const HTMLBody(),
-  });
-}
-
-class HTMLHeader{
-  final bool indexed;
-  final int  title;
-  final int  description;
-  final int  keywords;
-
-  const HTMLHeader({
-    ///This rreplace original title for a new form
-    this.indexed     = false,
-    this.title       = -1,
-    this.description = -1,
-    this.keywords    = -1,
-  });
-
-}
-
-class HTMLBody{
-  final int  h1;
-  final int  h2;
-  final int  p;
-
-  const HTMLBody({
-    this.h1 = -1,
-    this.h2 = -1,
-    this.p  = -1,
-  });
 }
