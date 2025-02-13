@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import multiprocessing
 import os
+import json
 
 import logging
 
@@ -20,9 +21,26 @@ def all_required_services_are_running():
 @app.route('/health')
 def health_check():
     if all_required_services_are_running():
-        return 'OK', 200
+        health_data = {
+            "ok": 1,
+            "message": "OK!",
+            "host": "192.168.0.1:8080",
+            "pid": 1234,
+            "services": {
+                "postgres": 1,
+                "rabbitmq": 0,
+            }
+        }
+
+        return jsonify(health_data), 200
+
     else:
-        return 'Service Unavailable', 500
+        error_data = {
+            "ok": 0,
+            "message": "Service Unavailable"
+        }
+
+        return jsonify(error_data), 500
 
 @app.route('/login', methods=['POST'])
 def login():

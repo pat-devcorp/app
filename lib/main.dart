@@ -15,7 +15,7 @@ Future<void> main() async {
     throw Exception('Error loading .env file: $e');
   }
 
-  Bootstrap bootstrap =  Bootstrap(apiHost: dotenv.get('API_HOST'));
+  Bootstrap bootstrap =  Bootstrap(appVersion: dotenv.get('APP_VERSION'), apiHost: dotenv.get('API_HOST'));
   setupLocator(bootstrap);
 
   runApp(
