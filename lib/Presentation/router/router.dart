@@ -77,12 +77,12 @@ class PageData {
 
 class HTMLData{
   final String     route;
-  final HTMLHeader header;
   final HTMLBody   body;
+  final HTMLHeader header;
   const HTMLData({
     this.route  = "",
-    this.header = const HTMLHeader(),
     this.body   = const HTMLBody(),
+    this.header = const HTMLHeader(),
   });
 }
 
@@ -93,13 +93,11 @@ class HTMLHeader{
   final int  keywords;
 
   const HTMLHeader({
-    ///This rreplace original title for a new form
     this.indexed     = false,
     this.title       = -1,
     this.description = -1,
     this.keywords    = -1,
   });
-
 }
 
 class HTMLBody{
