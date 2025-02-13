@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.green,
         actions: [
           IconButton(
-            icon: const Icon(Icons.person, color: Colors.white),
+            icon: const Icon(Icons.logout_outlined, color: Colors.white),
             onPressed: () {
               Navigator.push(
                 context,
