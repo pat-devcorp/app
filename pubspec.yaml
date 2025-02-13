@@ -38,6 +38,7 @@ dependencies:
   json_annotation: ^4.9.0
   dio: ^5.8.0+1
   logger: ^2.5.0
+  page_transition: ^2.0.9
 
   retrofit: any
   flutter_riverpod: ^2.6.1
