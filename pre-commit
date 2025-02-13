@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# Log a message function
+log_message() {
+  echo "$1"
+}
+
+log_message "Running Flutter pub get..."
+if ! output=$(flutter pub get); then
+    log_message "COMMIT REJECTED: Flutter pub get failed."
+    log_message "$output"
+    exit 1
+fi
+
+# Run Dart fix to automatically apply fixes
+log_message "Running Dart fix..."
+if ! output=$(dart fix --apply); then
+    log_message "COMMIT REJECTED: Dart fix encountered errors."
+    log_message "$output"
+    exit 1
+fi
+
+# Run Dart format to ensure code is properly formatted
+log_message "Running Dart format..."
+if ! output=$(dart format .); then
+    log_message "COMMIT REJECTED: Dart format encountered errors."
+    log_message "$output"
+    exit 1
+fi
+
+# Run Flutter analyze and check for errors
+log_message "Running Flutter analyze..."
+if ! output=$(flutter analyze); then
+    log_message "COMMIT REJECTED: Flutter analyze found the following errors."
+    log_message "$output"
+    exit 1
+fi
+
+# Run Dart analyze and check for errors
+log_message "Running Dart analyze..."
+if ! output=$(dart analyze); then
+    log_message "COMMIT REJECTED: Dart analyze found the following errors."
+    log_message "$output"
+    exit 1
+fi
+
+# Optional: Run Flutter Doctor to check the development environment
+log_message "Running Flutter doctor..."
+if ! output=$(flutter doctor); then
+    log_message "COMMIT REJECTED: Flutter doctor found environment issues."
+    log_message "$output"
+    exit 1
+fi
+
+# Optional: Run Flutter tests to ensure that all unit tests pass
+log_message "Running Flutter tests..."
+if ! output=$(flutter test); then
+    log_message "COMMIT REJECTED: Flutter tests failed."
+    log_message "$output"
+    exit 1
+fi
+
+# If we made it this far, the commit is allowed
+log_message "Commit allowed!"
+exit 0
+

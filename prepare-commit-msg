@@ -1,0 +1,17 @@
+#!/bin/bash
+echo "Git Hook!"
+
+commit_msg=$(cat "$1")
+commit_msg_pattern="^(feat|fix|docs|style|refactor|test|chore)(\([a-zA-Z0-9-]+\))?: .{1,}$"
+
+# Check if commit message matches the pattern
+if ! [[ "$commit_msg" =~ $commit_msg_pattern ]]; then
+    echo "COMMIT REJECTED: Commit message does not follow GitHub conventional commit format."
+    echo "Expected format: <type>(<scope>): <description>"
+    echo "Example: feat(ui): add button component"
+    exit 1
+fi
+
+# If we made it this far, the commit is allowed
+echo "Commit allowed!"
+exit 0
