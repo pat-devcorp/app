@@ -1,13 +1,18 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:app/Infrastructure/Service/api_route.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() {
+  setUpAll(() async {
+    await dotenv.load();
+  });
+
   test('Check if the server is running', () async {
-    final url = Uri.parse( "http://localhost:9090/health${ApiRoute.login}");
+    final baseUrl = dotenv.env['API_HOST'] ?? 'http://localhost:9090';
+    final url = Uri.parse('$baseUrl/health');
 
     try {
       final response = await http.get(url);
