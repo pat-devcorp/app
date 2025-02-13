@@ -1,5 +1,5 @@
-import 'package:app/Domain/Except/invalid_argument.dart';
-import 'package:app/Domain/Model/authentication.dart';
+import '../../Domain/Except/invalid_argument.dart';
+import '../../Domain/Model/authentication.dart';
 
 class FactoryAuthentication {
   static Authentication create({
