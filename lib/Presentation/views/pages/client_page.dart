@@ -1,7 +1,7 @@
-import 'package:app/Presentation/View/Page/widget/button_widgets.dart';
-import 'package:app/Presentation/View/Page/widget/colors_widgets.dart';
-import 'package:app/Presentation/View/Page/widget/input_widgets.dart';
-import 'package:app/Presentation/View/Page/widget/texts_widgets.dart';
+import 'package:app/Presentation/views/widget/button_widgets.dart';
+import 'package:app/Presentation/views/widget/colors_widgets.dart';
+import 'package:app/Presentation/views/widget/input_widgets.dart';
+import 'package:app/Presentation/views/widget/texts_widgets.dart';
 import 'package:flutter/material.dart';
 
 

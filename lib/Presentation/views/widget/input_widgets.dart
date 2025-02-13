@@ -1,4 +1,4 @@
-import 'package:app/Presentation/View/Page/widget/colors_widgets.dart';
+import 'package:app/Presentation/views/widget/colors_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

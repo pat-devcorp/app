@@ -1,6 +1,6 @@
-import 'package:app/Presentation/View/Page/login.dart';
-import 'package:app/Presentation/View/Page/page/client_page.dart';
-import 'package:app/Presentation/View/Page/widget/button_widgets.dart';
+import 'package:app/Presentation/views/pages/login.dart';
+import 'package:app/Presentation/router/router.dart';
+import 'package:app/Presentation/views/widget/button_widgets.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -130,12 +130,7 @@ class _HomeState extends State<Home> {
                   GreenButton(
                     text: 'Ir a Registrar',
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ClientPage(),
-                        ),
-                      );
+                      PageRouter.goToPage(context, page: Pages.client);
                     },
                   ),
                 ],
