@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:app/Application/State/authentication_state.dart';
@@ -27,7 +29,7 @@ class AuthenticationUseCase extends StateNotifier<AuthenticationState> {
         PageRouter.goToPage(context, page: Pages.welcome);
         state = AuthenticationState.success;
       } else {
-        log('⚠️ Authentication failed: ${response.data}');
+        log('⚠️ Authenti ation failed: ${response.data}');
         state = AuthenticationState.error;
       }
     } catch (e) {

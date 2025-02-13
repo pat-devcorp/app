@@ -1,4 +1,3 @@
-import 'package:app/Presentation/views/pages/login.dart';
 import 'package:app/Presentation/router/router.dart';
 import 'package:app/Presentation/views/widget/button_widgets.dart';
 import 'package:app/Presentation/views/widget/colors_widgets.dart';
@@ -31,22 +30,21 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      body: Center(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width ,
-          height: MediaQuery.of(context).size.width,
-          child: Card(
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+      body : Center(
+        child : SizedBox(
+          height : MediaQuery.of(context).size.width,
+          width  : MediaQuery.of(context).size.width ,
+          child  : Card(
+            elevation : 5,
+            shape     : RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            child     : 
+            Padding(
+              padding : const EdgeInsets.all(20.0),
+              child   : 
+              Column(
+                mainAxisAlignment  : MainAxisAlignment.center,
+                crossAxisAlignment : CrossAxisAlignment.center,
+                children : [
                   CustomText(text: 'Datos del Usuario', type: TextType.title2),
                   Table(
                     border: TableBorder.all(
