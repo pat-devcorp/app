@@ -2,7 +2,7 @@
 echo "Git Hook!"
 
 commit_msg=$(cat "$1")
-commit_msg_pattern="^(feat|fix|docs|style|refactor|test|chore)(\([a-zA-Z0-9-]+\))?: .{1,}$"
+commit_msg_pattern="^(task|feat|fix|docs|style|refactor|test|chore)(\([a-zA-Z0-9-]+\))?: .{1,}$"
 
 # Check if commit message matches the pattern
 if ! [[ "$commit_msg" =~ $commit_msg_pattern ]]; then
