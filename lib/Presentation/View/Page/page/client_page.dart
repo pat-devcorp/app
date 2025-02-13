@@ -65,18 +65,21 @@ class _ClientPageState extends State<ClientPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         InputWidgets(
+                          maxLength: 14,
                           controller: _nombreController,
                           label: 'Nombre',
                           icon: Icons.person,
                         ),
                         SizedBox(height: 10),
                         InputWidgets(
+                          maxLength: 14,
                           controller: _apellidoController,
                           label: 'Apellido',
                           icon: Icons.person_outline,
                         ),
                         SizedBox(height: 10),
                         InputWidgets(
+                          maxLength: 14,
                           controller: _dniController,
                           label: 'DNI',
                           icon: Icons.credit_card,
@@ -93,11 +96,12 @@ class _ClientPageState extends State<ClientPage> {
                         ),
                         SizedBox(height: 10),
                         InputWidgets(
+                          maxLength: 24,
                           controller: _direccionController,
                           label: 'Dirección',
                           icon: Icons.location_on,
                         ),
-                        SizedBox(height: 20), 
+                        SizedBox(height: 20),
                         Center(
                           child: GreenButton(
                             text: 'Registrar',
