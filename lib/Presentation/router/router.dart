@@ -1,3 +1,6 @@
+import 'package:app/Presentation/views/pages/home.dart';
+import 'package:app/Presentation/views/pages/login.dart';
+import 'package:app/Presentation/views/pages/client_page.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -13,22 +16,22 @@ class PageRouter {
     const PageData(
       key     : Pages.home,
       unbound : true,
-      // page    : (),
-      // html    : HTMLData( route: '/401/', header: HTMLHeader(title: 12 ) ),
+      page    : LoginPage(),
+      html    : HTMLData( route: '/home/' ),
     ),
 
     const PageData(
       key     : Pages.welcome,
       unbound : true,
-      // page    : NotAuthPage(),
-      // html    : HTMLData( route: '/401/', header: HTMLHeader(title: 12 ) ),
+      page    : Home(),
+      html    : HTMLData( route: '/welcome/' ),
     ),
 
     const PageData(
       key     : Pages.client,
       unbound : false,
-      // page    : NotAuthPage(),
-      // html    : HTMLData( route: '/401/', header: HTMLHeader(title: 12 ) ),
+      page    : ClientPage(),
+      html    : HTMLData( route: '/client/' ),
     ),
   ];
 

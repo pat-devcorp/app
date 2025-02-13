@@ -1,6 +1,8 @@
-import 'package:app/Presentation/View/Page/login.dart';
-import 'package:app/Presentation/View/Page/page/client_page.dart';
-import 'package:app/Presentation/View/Page/widget/button_widgets.dart';
+import 'package:app/Presentation/views/pages/login.dart';
+import 'package:app/Presentation/router/router.dart';
+import 'package:app/Presentation/views/widget/button_widgets.dart';
+import 'package:app/Presentation/views/widget/colors_widgets.dart';
+import 'package:app/Presentation/views/widget/texts_widgets.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -18,12 +20,12 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bienvenido $userName'),
+        title: CustomText(text: 'Bienvenido $userName', type: TextType.title2),
         centerTitle: true,
-        backgroundColor: Colors.green,
+        backgroundColor: AppColors.mainGreen,
         actions: [
           IconButton(
-            icon: const Icon(Icons.person, color: Colors.white),
+            icon: const Icon(Icons.logout_outlined, color: Colors.white),
             onPressed: () {
               Navigator.push(
                 context,
@@ -51,15 +53,7 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text(
-                    'Datos del Usuario',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 10),
+                  CustomText(text: 'Datos del Usuario', type: TextType.title2),
                   Table(
                     border: TableBorder.all(
                       color: Colors.black26,
@@ -73,54 +67,36 @@ class _HomeState extends State<Home> {
                       TableRow(
                         children: [
                           Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              'Nombre:',
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
+                            padding: EdgeInsets.all(10),
+                            child: CustomText(text: 'Nombre', type: TextType.normal),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              'Juan Pérez',
-                              style: TextStyle(fontSize: 18),
-                            ),
+                            padding: EdgeInsets.all(10),
+                            child: CustomText(text: 'Luis', type: TextType.small)
                           ),
                         ],
                       ),
                       TableRow(
                         children: [
                           Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              'Email:',
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
+                            padding: EdgeInsets.all(10),
+                            child: CustomText(text: 'Email', type: TextType.normal),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              'juanperez@example.com',
-                              style: TextStyle(fontSize: 18),
-                            ),
+                            padding: EdgeInsets.all(10),
+                            child: CustomText(text: 'juanperez@example.com', type: TextType.small)
                           ),
                         ],
                       ),
                       TableRow(
                         children: [
                           Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              'Teléfono:',
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
+                            padding: EdgeInsets.all(10),
+                            child: CustomText(text: 'Teléfono', type: TextType.normal)
                           ),
                           Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              '+123456789',
-                              style: TextStyle(fontSize: 18),
-                            ),
+                            padding: EdgeInsets.all(10),
+                            child: CustomText(text: '+123456789', type: TextType.small)
                           ),
                         ],
                       ),
@@ -130,12 +106,7 @@ class _HomeState extends State<Home> {
                   GreenButton(
                     text: 'Ir a Registrar',
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ClientPage(),
-                        ),
-                      );
+                      PageRouter.goToPage(context, page: Pages.client);
                     },
                   ),
                 ],
