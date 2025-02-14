@@ -1,5 +1,5 @@
-import 'package:app/Domain/Except/invalid_argument.dart';
-import 'package:app/Domain/Model/client.dart';
+import '../../Domain/Except/invalid_argument.dart';
+import '../../Domain/Model/client.dart';
 
 class FactoryClient {
   static Client create({
