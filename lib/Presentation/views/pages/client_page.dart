@@ -81,7 +81,7 @@ class _ClientPageState extends State<ClientPage> {
                         ),
                         SizedBox(height: 10),
                         InputWidgets(
-                          maxLength: 14,
+                          maxLength: 8,
                           controller: _dniController,
                           label: 'DNI',
                           icon: Icons.credit_card,
@@ -91,7 +91,7 @@ class _ClientPageState extends State<ClientPage> {
                               return 'Por favor ingrese el DNI';
                             }
                             if (value.length < 7 || value.length > 8) {
-                              return 'DNI debe tener 7 u 8 dígitos';
+                              return 'DNI debe tener  8 dígitos';
                             }
                             return null;
                           },

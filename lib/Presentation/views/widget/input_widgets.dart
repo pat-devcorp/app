@@ -23,28 +23,28 @@ class InputWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
-      keyboardType: keyboardType,
-      maxLength: maxLength,
+      controller   : controller,
+      keyboardType : keyboardType,
+      maxLength    : maxLength,
       decoration: InputDecoration(
-        labelText: label,
-        labelStyle: GoogleFonts.nunito(color: AppColors.textGray, fontSize: 16),
-        prefixIcon: Icon(icon, color: AppColors.mainGreen),
-        enabledBorder: OutlineInputBorder(
+        labelText     : label,
+        labelStyle    : GoogleFonts.nunito(color: AppColors.textGray, fontSize: 16),
+        prefixIcon    : Icon(icon, color: AppColors.mainGreen),
+        enabledBorder : OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: AppColors.textGray),
         ),
-        focusedBorder: OutlineInputBorder(
+        focusedBorder : OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: AppColors.mainGreen, width: 2),
+          borderSide: BorderSide(color: AppColors.mainGreen, width: 1),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.red, width: 2),
+          borderSide: BorderSide(color: Colors.red, width: 1.5),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.red, width: 2),
+          borderSide: BorderSide(color: Colors.red, width: 1),
         ),
         counterText: "",
       ),
