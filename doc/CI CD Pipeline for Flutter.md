@@ -5,7 +5,7 @@ Pipeline Overview
 
 The pipeline is divided into three main stages:
 
-![continuos Integration and Continuos Deployment](image/app_ci_cd.jpg "CI/CD")
+![continuos Integration and Continuos Deployment](/asset/image/app_ci_cd.jpg "CI/CD")
 
 1. Development
 
