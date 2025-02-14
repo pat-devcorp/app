@@ -1,5 +1,4 @@
 enum Pages {
+  login,
   home,
-  welcome,
-  client
 }

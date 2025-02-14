@@ -1,6 +1,6 @@
 enum AuthenticationState {
-  initial,
+  unauthenticated,
   loading,
-  success,
+  authenticated,
   error,
 }

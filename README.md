@@ -2,8 +2,11 @@
 
 | Version | Tarea | Creado a las | Creado por | Aprobado | Aprobado por | 
 |---------|-------|--------------|------------|----------|--------------|
-| 1.0.0 | 14/02/25 | Definir colores aplicativo | Desarrollo (Christopher Yquira M., Patrick Fuentes C., Yndira Gonzales S., Kevin Carrillo V.) | ? | ? |
+| 1.0.0 | 14/02/25 | Definir colores aplicativo | Desarrollo (Christopher Yquira M., Patrick Fuentes C., Yndira Gonzales S., Kevin Carrillo V.) | 14/02/25 | Lucia Zuta B. |
 
+## Resolucion
+
+Se acepta la propuesta 4.
 
 ## Standar
 
@@ -113,16 +116,16 @@ https://www.figma.com/design/Y5srIeXO9puFXZJVASE0Y2/Mockups-APP-9780Bitcoin?node
 
 ### Recursos
 1. Logo 1
-    - ![logo](/doc/asset/image/9780_1.png)
+    - ![logo](/doc/asset/image/9780_1.png "logo")
     - [codigo](/doc/asset/9780_1.dart)
 2. Logo 2
-    - ![logo](/doc/asset/image/9780_2.png)
+    - ![logo](/doc/asset/image/9780_2.png "logo")
     - [codigo](/doc/asset/9780_2.dart)
 3. Logo 3
-    - ![logo](/doc/asset/image/9780_3.png)
+    - ![logo](/doc/asset/image/9780_3.png "logo")
     - [codigo](/doc/asset/9780_3.dart)
 4. Colores base
-    - ![colores base](/doc/asset/image/9780_4.png)
+    - ![colores base](/doc/asset/image/9780_4.png "colores")
     - [codigo](/doc/asset/9780_4.dart)
 
 ## Referencias

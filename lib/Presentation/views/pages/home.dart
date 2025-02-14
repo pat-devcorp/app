@@ -1,115 +1,92 @@
-import '../../router/pages.dart';
+import '../../language/localization_service.dart';
 import '../../router/router.dart';
-import '../../views/widget/button_widgets.dart';
-import '../../views/widget/colors_widgets.dart';
-import '../widget/texts_widgets.dart';
+import '../../router/model/pages.dart';
+import '../model/dimension.dart';
+import '../widget/notification_snack_bar.dart';
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomeState extends State<Home> {
+class _HomePageState extends State<HomePage> {
+  final LocalizationService _localizationService = GetIt.instance<LocalizationService>();
+  //final authState = ref.watch(authenticationProvider);
 
-  final String userName = "Kevin";
+  int _selectedIndex = 0;
+  String _selectedLanguage = 'en'; // Default language
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        title: Text(
+          _localizationService.welcomeMessage, // Dynamic translation
+          style: TextStyle(fontSize: context.dimensions[Dimension.large]),
+        ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: IconButton(
-              icon: const Icon(Icons.logout_outlined, color: AppColors.mainGreen, size: 30),
-              onPressed: () => PageRouter.goToPage(context, page: Pages.home),
-            ),
+          // Language Dropdown
+          DropdownButton<String>(
+            value: _selectedLanguage,
+            onChanged: (String? newLanguage) async {
+              if (newLanguage != null) {
+                await _localizationService.newLanguage;
+                setState(() {
+                  _selectedLanguage = newLanguage;
+                });
+              }
+            },
+            items: const [
+              DropdownMenuItem(value: 'en', child: Text('English')),
+              DropdownMenuItem(value: 'es', child: Text('Español')),
+              DropdownMenuItem(value: 'fr', child: Text('Français')),
+            ],
+          ),
+          // Logout Button
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              //ref.read(authenticationProvider.notifier).logout();
+              NotificationSnackBar.show(context, _localizationService.logoutButtonLabel, SnackBarType.success);
+              PageRouter.goToPage(context, page: Pages.login);
+            },
           ),
         ],
       ),
-      body: Center(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width ,
-          height: MediaQuery.of(context).size.width,
-          child: Card(
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CustomText(text: 'Datos del Usuario', type: TextType.title2),
-                  Table(
-                    border: TableBorder.all(
-                      color: Colors.black26,
-                      width: 1,
-                    ),
-                    columnWidths: {
-                      0: FixedColumnWidth(MediaQuery.of(context).size.width * 0.2),
-                      1: FixedColumnWidth(MediaQuery.of(context).size.width * 0.2),
-                    },
-                    children: const [
-                      TableRow(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(10),
-                            child: CustomText(text: 'Nombre', type: TextType.normal),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(10),
-                            child: CustomText(text: 'Luis', type: TextType.small)
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(10),
-                            child: CustomText(text: 'Email', type: TextType.normal),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(10),
-                            child: CustomText(text: 'juanperez@example.com', type: TextType.small)
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(10),
-                            child: CustomText(text: 'Teléfono', type: TextType.normal)
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(10),
-                            child: CustomText(text: '+123456789', type: TextType.small)
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 50), // Espacio entre la tabla y el botón
-                  GreenButton(
-                    text: 'Ir a Registrar',
-                    onPressed: () {
-                      PageRouter.goToPage(context, page: Pages.client);
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+      body: _buildPage(_selectedIndex),
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: _onItemTapped,
+        selectedIndex: _selectedIndex,
+        destinations: [
+          NavigationDestination(icon: const Icon(Icons.home), label: _localizationService.welcomeMessage),
+          const NavigationDestination(icon: Icon(Icons.person), label: "Profile"),
+          const NavigationDestination(icon: Icon(Icons.settings), label: "Settings"),
+        ],
       ),
     );
+  }
+
+  Widget _buildPage(int index) {
+    switch (index) {
+      case 0:
+        return const Center(child: Text("Home Screen"));
+      case 1:
+        return const Center(child: Text("Profile Screen"));
+      case 2:
+        return const Center(child: Text("Settings Screen"));
+      default:
+        return const Center(child: Text("Home Screen"));
+    }
   }
 }

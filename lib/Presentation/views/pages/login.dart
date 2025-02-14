@@ -1,10 +1,12 @@
+import 'package:get_it/get_it.dart';
+
 import '../../../Application/State/authentication_state.dart';
-import '../../../Application/UseCase/authentication_use_case.dart';
+import '../../language/localization_service.dart';
+import '../../provider/authentication_provider.dart';
 import '../../router/router.dart';
-import '../../views/widget/colors_widgets.dart';
-import '../../views/widget/input_widgets.dart';
-import '../../views/widget/texts_widgets.dart';
-import '../../router/pages.dart';
+import '../../router/model/pages.dart';
+import '../widget/notification_snack_bar.dart';
+import '../model/dimension.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,99 +25,73 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final LocalizationService _localizationService = GetIt.instance<LocalizationService>();
+
     final authState = ref.watch(authenticationProvider);
     final authNotifier = ref.read(authenticationProvider.notifier);
 
     ref.listen(authenticationProvider, (previous, next) {
-      if (next == AuthenticationState.success) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: CustomText(
-              text: 'Login exitoso!',
-              type: TextType.normal,
-              color: AppColors.whiteBackground,
-            ),
-            backgroundColor: AppColors.mainGreen,
-            behavior: SnackBarBehavior.floating,
-            duration: Duration(seconds: 2),
-          ),
-        );
-        PageRouter.goToPage(context, page: Pages.welcome);
+      if (next == AuthenticationState.authenticated) {
+        NotificationSnackBar.show(context, "Operation Successful!", SnackBarType.success);
+        PageRouter.goToPage(context, page: Pages.home);
       } else if (next == AuthenticationState.error) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: CustomText(
-              text: 'Credenciales inválidas',
-              type: TextType.normal,
-              color: AppColors.whiteBackground,
-            ),
-            backgroundColor: AppColors.textRed,
-            behavior: SnackBarBehavior.floating,
-            duration: Duration(seconds: 2),
-          ),
-        );
+        NotificationSnackBar.show(context, "Something went wrong!", SnackBarType.error);
       }
     });
 
     return Scaffold(
       body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 100),
-              Center(
-                child: CustomText(
-                  text: 'Iniciar Sesión',
-                  type: TextType.title2,
-                  color: AppColors.textBlack,
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 15, top: 15),
+              child: Image.asset(
+                "assets/image/vector-1.png",
               ),
-              SizedBox(height: 20),
-              Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+            ),
+            const SizedBox(
+              height: 18,
+            ),
+            TextField(
+              controller: _usernameController,
+              decoration: InputDecoration(border: OutlineInputBorder(), labelText: 'email'),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            TextField(
+              controller: _passwordController,
+              obscureText: true,
+              decoration: InputDecoration(border: OutlineInputBorder(), labelText: 'password'),
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            Center(
+              child: FilledButton(
+                onPressed: authState == AuthenticationState.loading
+                    ? null
+                    : () => authNotifier.login(context, _usernameController.text, _passwordController.text),
+                style: FilledButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
-                child: Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        InputWidgets(
-                          controller: _usernameController,
-                          label: 'Usuario',
-                          icon: Icons.person,
+                child: authState == AuthenticationState.loading
+                    ? const SizedBox(
+                        height: 24,
+                        width: 24,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.white,
                         ),
-                        SizedBox(height: 10),
-                        InputWidgets(
-                          controller: _passwordController,
-                          label: 'Contraseña',
-                          icon: Icons.lock,
-                          //obscureText: true,
-                        ),
-                        SizedBox(height: 20),
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: authState == AuthenticationState.loading
-                                ? null
-                                : () => authNotifier.login(context, _usernameController.text, _passwordController.text),
-                            child: authState == AuthenticationState.loading
-                                ? const CircularProgressIndicator()
-                                : const Text("Login"),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                    )
+                    : Text(
+                  _localizationService.loginButtonLabel,
+                    style: TextStyle(fontSize: context.dimensions[Dimension.large]),),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

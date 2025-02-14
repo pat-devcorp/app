@@ -2,14 +2,13 @@ import 'dart:developer';
 
 import '../../Application/State/authentication_state.dart';
 import '../../Domain/Service/iauthentication_service.dart';
-import '../../locator.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AuthenticationUseCase extends StateNotifier<AuthenticationState> {
   final IAuthenticationService _authenticationService;
-  AuthenticationUseCase(this._authenticationService) : super(AuthenticationState.initial);
+  AuthenticationUseCase(this._authenticationService) : super(AuthenticationState.unauthenticated);
 
   Future<void> login(
       BuildContext context, String username, String password) async {
@@ -22,7 +21,7 @@ class AuthenticationUseCase extends StateNotifier<AuthenticationState> {
       );
 
       if (response.success) {
-        state = AuthenticationState.success;
+        state = AuthenticationState.authenticated;
       } else {
         log('⚠️ Authentication failed: ${response.data}');
         state = AuthenticationState.error;
@@ -31,9 +30,8 @@ class AuthenticationUseCase extends StateNotifier<AuthenticationState> {
       state = AuthenticationState.error;
     }
   }
-}
 
-final authenticationProvider =
-StateNotifierProvider<AuthenticationUseCase, AuthenticationState>(
-      (ref) => AuthenticationUseCase(locator<IAuthenticationService>()),
-);
+  void logout() {
+    state = AuthenticationState.unauthenticated;
+  }
+}

@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
+
 import '/Domain/Model/bootstrap.dart';
 import '/Presentation/views/pages/login.dart';
 import 'Presentation/views/style/theme.dart';
@@ -17,7 +21,15 @@ Future<void> main() async {
     throw Exception('Error loading .env file: $e');
   }
 
-  Bootstrap bootstrap =  Bootstrap(appVersion: dotenv.get('APP_VERSION'), apiHost: dotenv.get('API_HOST'));
+  Map<String, dynamic> localizedStrings = {};
+  try {
+    final String jsonString = await rootBundle.loadString('assets/lang/en.json');
+    localizedStrings = json.decode(jsonString);
+  } catch (e) {
+    throw Exception("Error loading language: $e");
+  }
+
+  Bootstrap bootstrap =  Bootstrap(appVersion: dotenv.get('APP_VERSION'), apiHost: dotenv.get('API_HOST'), labelStrings: localizedStrings);
   setupLocator(bootstrap);
 
   runApp(
@@ -35,9 +47,10 @@ class MyApp extends StatelessWidget {
     final brightness = View.of(context).platformDispatcher.platformBrightness;
     TextTheme textTheme = createTextTheme(context, "JetBrains Mono", "Roboto");
     MaterialTheme theme = MaterialTheme(textTheme);
+    final brightnessMode = brightness == Brightness.light ? theme.light() : theme.dark();
 
     return MaterialApp(
-      theme: brightness == Brightness.light ? theme.light() : theme.dark(),
+      theme: brightnessMode,
       debugShowCheckedModeBanner: false,
       home: LoginPage(), // Your home page
     );

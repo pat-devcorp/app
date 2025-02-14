@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'web/html_data.dart';
-import 'pages.dart';
+import 'model/html_data.dart';
+import 'model/pages.dart';
 
 class PageData {
   final bool unbound;

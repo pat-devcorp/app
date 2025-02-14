@@ -1,7 +1,7 @@
 import 'package:app/Domain/Service/iauthentication_service.dart';
 
 import '../../Domain/Service/authentication_service_state.dart';
-import '../../Domain/Service/response.dart';
+import '../../Domain/Model/response.dart';
 import 'api_route.dart';
 
 import 'dart:developer';
