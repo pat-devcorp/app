@@ -32,10 +32,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
     ref.listen(authenticationProvider, (previous, next) {
       if (next == AuthenticationState.authenticated) {
-        NotificationSnackBar.show(context, "Operation Successful!", SnackBarType.success);
+        NotificationSnackBar.show(context, _localizationService.operationSuccess, SnackBarType.success);
         PageRouter.goToPage(context, page: Pages.home);
       } else if (next == AuthenticationState.error) {
-        NotificationSnackBar.show(context, "Something went wrong!", SnackBarType.error);
+        NotificationSnackBar.show(context, _localizationService.operationError, SnackBarType.error);
       }
     });
 
@@ -50,23 +50,23 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 "assets/image/vector-1.png",
               ),
             ),
-            const SizedBox(
-              height: 18,
+            SizedBox(
+              height: context.dimensions[Dimension.large],
             ),
             TextField(
               controller: _usernameController,
-              decoration: InputDecoration(border: OutlineInputBorder(), labelText: 'email'),
+              decoration: InputDecoration(border: OutlineInputBorder(), labelText: _localizationService.userLabel),
             ),
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: context.dimensions[Dimension.xlarge],
             ),
             TextField(
               controller: _passwordController,
               obscureText: true,
-              decoration: InputDecoration(border: OutlineInputBorder(), labelText: 'password'),
+              decoration: InputDecoration(border: OutlineInputBorder(), labelText: _localizationService.passwordLabel),
             ),
-            const SizedBox(
-              height: 25,
+            SizedBox(
+              height: context.dimensions[Dimension.xlarge],
             ),
             Center(
               child: FilledButton(
@@ -79,8 +79,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 ),
                 child: authState == AuthenticationState.loading
                     ? const SizedBox(
-                        height: 24,
-                        width: 24,
+                        height: context.paddings[Padding.xlarge],
+                        width: context.paddings[Padding.xlarge],
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
                           color: Colors.white,

@@ -10,7 +10,7 @@ enum Padding {
 }
 
 extension PaddingExtension on BuildContext {
-  Map<Padding, double> get dimensions {
+  Map<Padding, double> get paddings {
     return const {
       Padding.xlarge: 20,
       Padding.large: 16,

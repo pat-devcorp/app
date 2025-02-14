@@ -9,7 +9,7 @@ enum Space {
 }
 
 extension SpaceExtension on BuildContext {
-  Map<Space, double> get dimensions {
+  Map<Space, double> get spaces {
     return const {
       Space.xlarge: 20,
       Space.large: 16,
