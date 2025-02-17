@@ -1,35 +1,28 @@
-import 'dart:convert';
-import 'dart:developer';
-import 'package:http/http.dart' as http;
-import '../../Domain/Model/response.dart';
+import 'package:app/Domain/Model/client_model.dart';
+import 'package:dio/dio.dart';
+// Ajusta la ruta
 
 class ClientService {
-  String apiHost;
+  final Dio _dio = Dio();
 
-  ClientService(this.apiHost);
-
-  Future<Response> registerClient({required String name, required String email}) async {
-    final url = Uri.parse("$apiHost/client");
-
+  Future<List<ClientModel>> fetchClients() async {
     try {
-      final response = await http.post(
-        url,
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode({"name": name, "email": email}),
-      );
+      final response = await _dio.get('http://192.168.4.177:8080/client');
 
-      final Map<String, dynamic> decodedBody = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        final data = response.data; // dynamic
 
-      log('🔄 Response: ${response.statusCode} - ${decodedBody['message']}');
+        // Convertimos cada elemento de la lista en un objeto ClientModel
+        List<ClientModel> clients = (data as List)
+            .map((item) => ClientModel.fromJson(item))
+            .toList();
 
-      if (response.statusCode != 200) {
-        throw Exception(decodedBody['message']);
+        return clients;
+      } else {
+        throw Exception('Error al cargar datos. Código: ${response.statusCode}');
       }
-
-      return Response(success: true, data: decodedBody);
-    } catch (e) {
-      log('⚠️ Error during client registration: $e');
-      return Response(success: false, data: {'message': e.toString()});
+    } on DioError catch (e) {
+      throw Exception('Error en la petición: ${e.message}');
     }
   }
 }

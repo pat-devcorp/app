@@ -1,3 +1,4 @@
+import 'package:app/Presentation/views/pages/client_list.dart';
 import 'package:app/Presentation/views/pages/home.dart';
 import 'package:app/Presentation/views/pages/register_client_page.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class PageRouter {
     Pages.clientsList: PageData(
       key: Pages.clientsList,
       unbound: false,
-      page: HomePage(),
+      page: ClientList(),
       html: const HTMLData(route: '/client/list/'),
     ),
   };
