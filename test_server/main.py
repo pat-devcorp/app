@@ -45,7 +45,7 @@ def health_check():
 
 @app.route('/client', methods=['GET'])
 def get_client():
-    client = { "name": "Braulio", "email": "a@gmail.com" }
+    client = [ { "id": 1, "name": "Braulio", "email": "a@gmail.com" }, { "id": 2, "name": "Piero", "email": "a@gmail.com" } ]
     return jsonify(client), 200
 
 @app.route('/client', methods=['POST'])
@@ -55,9 +55,9 @@ def post_client():
     name = data.get('name')
     email = data.get('email')
 
-    if name != "Braulio" or email != "a@gmail.com":
+    if name == "" or len(name) > 50:
         return jsonify({"message": "error"}), 500
-    return jsonify({"message": "ok"}), 200
+    return jsonify({"message": "ok"}), 201
     
 
 @app.route('/login', methods=['POST'])
@@ -88,4 +88,4 @@ def login():
         return jsonify({"message": "An error occurred"}), 500
     
 if __name__ == "__main__":
-    app.run(debug=True, port=9090)
+    app.run(debug=True, port=9091)

@@ -10,7 +10,7 @@ void main() {
   });
 
   test('Check if the server is running', () async {
-    final baseUrl = dotenv.env['API_HOST'] ?? 'http://localhost:9090';
+    final baseUrl = dotenv.env['API_HOST'] ?? 'http://localhost:9091';
     final url = Uri.parse('$baseUrl/health');
 
     try {
