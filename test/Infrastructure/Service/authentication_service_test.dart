@@ -30,7 +30,8 @@ void main() {
           reason: 'Missing "message" field');
 
       // Validate 'ok' field type (should be int)
-      expect(responseBody['ok'], isA<int>(), reason: '"ok" should be an integer');
+      expect(responseBody['ok'], isA<int>(),
+          reason: '"ok" should be an integer');
 
       if (response.statusCode == 200) {
         // If 200, additional fields should exist

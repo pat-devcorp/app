@@ -1,8 +1,11 @@
 {
-  "userLabel": "Usuario",
-  "passwordLabel": "Contraseña",
+  "menuItemHome": "Inicio",
+  "menuItemSettings": "Ajustes",
+  "tittleLoginForm": "Iniciar sesión en su cuenta",
+  "inputUserLabel": "Usuario",
+  "inputPasswordLabel": "Contraseña",
   "loginButtonLabel": "Iniciar sesión",
-  "welcomeMessage": "¡Bienvenido!",
+  "welcomeMessage": "Bienvenido",
   "logoutButtonLabel": "Cerrar sesión",
   "operationSuccess": "¡Operación exitosa!",
   "operationError": "¡Algo salió mal!"

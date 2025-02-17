@@ -5,4 +5,6 @@ services:
     volumes:
       - .:/app
     ports:
-      - "9000"
+      - "${APP_PORT:-9090}:${APP_PORT:-9090}"
+    env_file:
+      - .env

@@ -2,7 +2,6 @@ import 'package:app/Domain/Factory/factory_authentication.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 
-
 void main() {
   group('Authentication', () {
     test('fromJson should return a valid Authentication object', () {

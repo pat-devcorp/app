@@ -30,13 +30,13 @@ class NotificationSnackBar {
       content: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: Colors.white), // White icon for visibility
+          Icon(icon, color: Colors.white),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
               message,
               style: const TextStyle(color: Colors.white),
-              softWrap: true, // Ensures multi-line support
+              softWrap: true,
             ),
           ),
           IconButton(
@@ -48,9 +48,10 @@ class NotificationSnackBar {
         ],
       ),
       backgroundColor: backgroundColor,
-      duration: const Duration(seconds: 4), // Slightly longer duration
-      behavior: SnackBarBehavior.floating, // Floating for better visibility
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)), // Rounded corners
+      duration: const Duration(seconds: 4),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8)),
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);

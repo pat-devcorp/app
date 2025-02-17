@@ -8,7 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AuthenticationUseCase extends StateNotifier<AuthenticationState> {
   final IAuthenticationService _authenticationService;
-  AuthenticationUseCase(this._authenticationService) : super(AuthenticationState.unauthenticated);
+  AuthenticationUseCase(this._authenticationService)
+      : super(AuthenticationState.unauthenticated);
 
   Future<void> login(
       BuildContext context, String username, String password) async {

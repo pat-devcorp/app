@@ -116,17 +116,17 @@ https://www.figma.com/design/Y5srIeXO9puFXZJVASE0Y2/Mockups-APP-9780Bitcoin?node
 
 ### Recursos
 1. Logo 1
-    - ![logo](/doc/asset/image/9780_1.png "logo")
-    - [codigo](/doc/asset/9780_1.dart)
+    - ![logo](/doc/asset/image/theme_1.png "logo")
+    - [codigo](/doc/asset/theme_1.dart)
 2. Logo 2
-    - ![logo](/doc/asset/image/9780_2.png "logo")
-    - [codigo](/doc/asset/9780_2.dart)
+    - ![logo](/doc/asset/image/theme_2.png "logo")
+    - [codigo](/doc/asset/theme_2.dart)
 3. Logo 3
-    - ![logo](/doc/asset/image/9780_3.png "logo")
-    - [codigo](/doc/asset/9780_3.dart)
+    - ![logo](/doc/asset/image/theme_3.png "logo")
+    - [codigo](/doc/asset/theme_3.dart)
 4. Colores base
-    - ![colores base](/doc/asset/image/9780_4.png "colores")
-    - [codigo](/doc/asset/9780_4.dart)
+    - ![colores base](/doc/asset/image/theme_4.png "colores")
+    - [codigo](/doc/asset/theme_4.dart)
 
 ## Referencias
 1. Material Foundation. (s.f.). Material Theme Builder. Material Foundation. https://material-foundation.github.io/material-theme-builder/ 

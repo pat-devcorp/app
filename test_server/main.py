@@ -42,13 +42,31 @@ def health_check():
 
         return jsonify(error_data), 500
 
+
+@app.route('/client', methods=['GET'])
+def get_client():
+    client = { "name": "Braulio", "email": "a@gmail.com" }
+    return jsonify(client), 200
+
+@app.route('/client', methods=['POST'])
+def post_client():
+    data = request.get_json()
+    app.logger.warning("Received data:", data)
+    name = data.get('name')
+    email = data.get('email')
+
+    if name != "Braulio" or email != "a@gmail.com":
+        return jsonify({"message": "error"}), 500
+    return jsonify({"message": "ok"}), 200
+    
+
 @app.route('/login', methods=['POST'])
 def login():
     try:
         app.logger.warning("ENTER")
         app.logger.warning("Content-Type:", request.headers.get('Content-Type'))
-        data = request.get_json()  # Get JSON data from the request
-        app.logger.warning("Received data:", data)  # This is the key change
+        data = request.get_json()
+        app.logger.warning("Received data:", data)
 
         if not data:
             return jsonify({"message": "No data provided"}), 400
@@ -60,14 +78,14 @@ def login():
             return jsonify({"message": "Email and password are required"}), 400
 
         if email in users and users[email] == password:
-            return jsonify({"message": "Login successful"}), 200  # 200 OK
+            return jsonify({"message": "Login successful"}), 200
 
         else:
-            return jsonify({"message": "Invalid credentials"}), 401 # 401 Unauthorized
+            return jsonify({"message": "Invalid credentials"}), 401
 
     except Exception as e:
-        print(f"An error occurred: {e}") #Good practice to log errors
-        return jsonify({"message": "An error occurred"}), 500  # 500 Internal Server Error
+        print(f"An error occurred: {e}")
+        return jsonify({"message": "An error occurred"}), 500
     
 if __name__ == "__main__":
     app.run(debug=True, port=9090)

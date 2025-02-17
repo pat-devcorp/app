@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 
@@ -9,7 +8,6 @@ import '../../provider/authentication_provider.dart';
 import '../../router/pages.dart';
 import '../../router/router.dart';
 import '../style/dimension.dart';
-import '../widget/input_widget.dart';
 import '../widget/notification_snack_bar.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
@@ -31,8 +29,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     final authState = ref.watch(authenticationProvider);
     final authNotifier = ref.read(authenticationProvider.notifier);
 
+    final radiusLayout = context.dimensions[Dimension.xlarge] ?? 30;
+    final radiusButton = context.dimensions[Dimension.medium] ?? 20;
     final dimensionLarge = context.dimensions[Dimension.large] ?? 16;
-    //final spaceLarge = context.dimensions[Dimension.large] ?? 16;
+    final spaceLarge = context.dimensions[Dimension.xlarge] ?? 25;
 
     ref.listen(authenticationProvider, (previous, next) {
       if (next == AuthenticationState.authenticated) {
@@ -46,10 +46,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     });
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      body: SafeArea(
-        bottom: false,
-        child: Container(
+        body: SafeArea(
+          bottom: false,
           child: Stack(
             clipBehavior: Clip.none,
             children: [
@@ -63,145 +61,123 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   ),
                 ),
               ),
+
               SingleChildScrollView(
-                child: Container(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 16.0,
-                          vertical: 15.0,
-                        ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 15.0,
+                      ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Icon(
-                                FlutterIcons.keyboard_backspace_mdi,
-                                color: Colors.white,
-                              ),
-                            ),
                             SizedBox(
-                              height: 20.0,
+                              height: MediaQuery.of(context).size.height * 0.6,
                             ),
                             Text(
-                              "Log in to your account",
+                              labels.tittleLoginForm,
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
                                   .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white,
-                                  ),
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
                             )
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        height: 40.0,
-                      ),
-                      Flexible(
-                        child: Container(
-                          width: double.infinity,
-                          constraints: BoxConstraints(
-                            minHeight:
-                                MediaQuery.of(context).size.height - 180.0,
+                    ),
+
+                    Flexible(
+                      child: Container(
+                        width: double.infinity,
+                        constraints: BoxConstraints(
+                          minHeight:
+                          MediaQuery.of(context).size.height * 0.4,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(radiusLayout),
+                            topRight: Radius.circular(radiusLayout),
                           ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(30.0),
-                              topRight: Radius.circular(30.0),
-                            ),
-                            color: Colors.white,
-                          ),
-                          padding: EdgeInsets.all(24.0),
-                          child: Column(
+                          color: Colors.white,
+                        ),
+
+                        padding: EdgeInsets.all(24.0),
+                        child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              InputWidget(
-                                //controller: _usernameController,
-                                topLabel: labels.userLabel,
-                                hintText: "Enter your email address",
-                              ),
                               SizedBox(
-                                height: 25.0,
+                                height: spaceLarge,
                               ),
-                              InputWidget(
-                                //controller: _passwordController,
-                                topLabel: labels.passwordLabel,
+                              TextField(
+                                controller: _usernameController,
+                                decoration: InputDecoration(border: OutlineInputBorder(), labelText: labels.inputUserLabel),
+                              ),
+
+                              SizedBox(
+                                height: spaceLarge,
+                              ),
+                              TextField(
+                                controller: _passwordController,
                                 obscureText: true,
-                                hintText: "Enter your password",
+                                decoration: InputDecoration(border: OutlineInputBorder(), labelText: labels.inputPasswordLabel),
                               ),
+
                               SizedBox(
-                                height: 15.0,
+                                height: spaceLarge,
                               ),
-                              GestureDetector(
-                                onTap: () {},
-                                child: Text(
-                                  "Forgot Password?",
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 20.0,
-                              ),
-                              Center(
-                                child: FilledButton(
+                              FilledButton(
                                   onPressed:
-                                      authState == AuthenticationState.loading
-                                          ? null
-                                          : () => authNotifier.login(
-                                              context,
-                                              _usernameController.text,
-                                              _passwordController.text),
+                                  authState == AuthenticationState.loading
+                                      ? null
+                                      : () => authNotifier.login(
+                                      context,
+                                      _usernameController.text,
+                                      _passwordController.text),
                                   style: FilledButton.styleFrom(
                                     padding: EdgeInsets.symmetric(
                                         vertical: dimensionLarge,
-                                        horizontal: dimensionLarge),
+                                        horizontal: dimensionLarge
+                                    ),
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
-                                            BorderRadius.circular(12)),
+                                        BorderRadius.circular(radiusButton)
+                                    ),
                                   ),
                                   child:
-                                      authState == AuthenticationState.loading
-                                          ? SizedBox(
-                                              height: dimensionLarge,
-                                              width: dimensionLarge,
-                                              child:
-                                                  const CircularProgressIndicator(
-                                                strokeWidth: 2,
-                                                color: Colors.white,
-                                              ),
-                                            )
-                                          : Text(
-                                              labels.loginButtonLabel,
-                                              style: TextStyle(
-                                                  fontSize: dimensionLarge),
-                                            ),
-                                ),
+                                  authState == AuthenticationState.loading
+                                      ? SizedBox(
+                                    height: dimensionLarge,
+                                    width: dimensionLarge,
+                                    child:
+                                    const CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                      : Text(
+                                    labels.loginButtonLabel,
+                                    style: TextStyle(
+                                        fontSize: dimensionLarge),
+                                  ),
                               ),
                             ],
-                          ),
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    ),
+
+                  ],
                 ),
               ),
+
             ],
           ),
         ),
-      ),
     );
   }
 }

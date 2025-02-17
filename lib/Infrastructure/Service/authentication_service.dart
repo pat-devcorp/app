@@ -14,7 +14,8 @@ class AuthenticationService implements IAuthenticationService {
   AuthenticationService(this.apiHost);
 
   @override
-  Future<Response> login({required String email, required String password}) async {
+  Future<Response> login(
+      {required String email, required String password}) async {
     final url = Uri.parse(apiHost + ApiRoute.login.message);
 
     try {
@@ -25,7 +26,8 @@ class AuthenticationService implements IAuthenticationService {
       );
 
       final Map<String, dynamic> decodedBody = jsonDecode(response.body);
-      final AuthenticationServiceState state = _mapStatusCodeToState(response.statusCode);
+      final AuthenticationServiceState state =
+          _mapStatusCodeToState(response.statusCode);
 
       log('🔄 Response: ${response.statusCode} - ${decodedBody['message'] ?? state.message}');
       if (response.statusCode != 200) {

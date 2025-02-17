@@ -6,6 +6,6 @@ import '../../Domain/Service/iauthentication_service.dart';
 import '../../locator.dart';
 
 final authenticationProvider =
-StateNotifierProvider<AuthenticationUseCase, AuthenticationState>(
-      (ref) => AuthenticationUseCase(locator<IAuthenticationService>()),
+    StateNotifierProvider<AuthenticationUseCase, AuthenticationState>(
+  (ref) => AuthenticationUseCase(locator<IAuthenticationService>()),
 );

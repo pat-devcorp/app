@@ -14,14 +14,13 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   try {
-    await dotenv.load(fileName: ".env"); // Load environment variables
+    await dotenv.load(fileName: ".env");
   } catch (e) {
     throw Exception('Error loading .env file: $e');
   }
 
-  // Load labels for the selected language
   UiLabels labels =
-      await LabelLoader.loadLabels('en'); // Change to 'es' for Spanish
+      await LabelLoader.loadLabels('es');
 
   Bootstrap bootstrap = Bootstrap(
       appVersion: dotenv.get('APP_VERSION'), apiHost: dotenv.get('API_HOST'));
@@ -48,7 +47,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: brightnessMode,
       debugShowCheckedModeBanner: false,
-      home: LoginPage(), // Your home page
+      home: LoginPage(),
     );
   }
 }

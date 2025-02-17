@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flask_test_server"
+authors = [
+    {name = "Patrick Alonso F. Carpio", email = "patrick.alonso.fc@gmail.com"}
+]
+description = "test server for rest api connection"
+version = "1.0.0"
+readme = "README.md"
+requires-python = ">=3.7"
+dependencies = [
+    "flask",
+    "flask_cors"
+]
