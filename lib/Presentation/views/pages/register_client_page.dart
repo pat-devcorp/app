@@ -2,6 +2,7 @@
 
 import 'package:app/Domain/Model/response.dart';
 import 'package:app/Infrastructure/Service/client_service.dart';
+import 'package:app/Presentation/language/ui_labels.dart';
 import 'package:app/Presentation/router/pages.dart';
 import 'package:app/Presentation/router/router.dart';
 import 'package:app/Presentation/views/style/dimension.dart';
@@ -9,6 +10,7 @@ import 'package:app/Presentation/views/style/font_size.dart';
 import 'package:app/Presentation/views/widget/body_widget.dart';
 import 'package:app/Presentation/views/widget/notification_snack_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class RegisterClientPage extends StatefulWidget {
   const RegisterClientPage({super.key});
@@ -18,6 +20,7 @@ class RegisterClientPage extends StatefulWidget {
 }
 
 class _RegisterClientPageState extends State<RegisterClientPage> {
+  final UiLabels labels = GetIt.instance<UiLabels>();
   final _formKey = GlobalKey<FormState>();
   String name = '';
   String email = '';
@@ -80,7 +83,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              "Registro de Cliente",
+                              labels.registerClient,
                               style: TextStyle(
                                 fontSize: context.fontSizes[FontSize.headline4],
                                 fontWeight: FontWeight.bold,
@@ -91,7 +94,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
 
                             TextFormField(
                               decoration: InputDecoration(
-                                labelText: "Nombre",
+                                labelText: labels.name,
                                 prefixIcon: Icon(Icons.person, color: Colors.blueAccent),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -109,7 +112,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
 
                             TextFormField(
                               decoration: InputDecoration(
-                                labelText: "Correo",
+                                labelText: labels.email,
                                 prefixIcon: Icon(Icons.email, color: Colors.blueAccent),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -152,7 +155,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
                                         ),
                                       ),
                                       child: Text(
-                                        "Registrar",
+                                        labels.register,
                                         style: TextStyle(
                                           fontSize: context.fontSizes[FontSize.button],
                                           fontWeight: FontWeight.bold,

@@ -1,5 +1,5 @@
 {
-  "menuItemHome": "Inicio",
+  "menuItemHome": "Inicio", 
   "menuItemSettings": "Ajustes",
   "tittleLoginForm": "Iniciar sesión en su cuenta",
   "inputUserLabel": "Usuario",
@@ -12,5 +12,8 @@
   "clientList": "Lista de clientes",
   "registerClient": "Registrar cliente",
   "home": "Inicio",
-  "welcomeTo9780Bitcoin": "Bienvenido a 9780Bitcoin"
+  "welcomeTo9780Bitcoin": "Bienvenido a 9780Bitcoin",
+  "name": "Nombre",
+  "email": "Correo",
+  "register": "Registrar"
 }
