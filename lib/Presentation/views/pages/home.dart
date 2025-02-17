@@ -1,7 +1,8 @@
+import 'package:app/Presentation/router/pages.dart';
+import 'package:app/Presentation/router/router.dart';
+
 import '../widget/custom_bottom_navigation_bar.dart';
-
 import 'package:flutter/material.dart';
-
 
 
 class HomePage extends StatefulWidget {
@@ -24,7 +25,19 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("Page ${_selectedIndex + 1}"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Page ${_selectedIndex + 1}"),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                PageRouter.goToPage(context, page: Pages.clientList);
+              },
+              child: const Text("Go to Home"),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
         selectedIndex: _selectedIndex,
