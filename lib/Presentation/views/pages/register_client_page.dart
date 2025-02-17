@@ -1,3 +1,6 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:app/Presentation/views/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:app/Domain/Model/client_model.dart';
@@ -36,12 +39,22 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
 
         bool success = await _clientService.registerClient(newClient);
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(success ? "Cliente registrado con éxito!" : "Error al registrar cliente"),
-            backgroundColor: success ? Colors.green : Colors.red,
-          ),
-        );
+        if (success) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Cliente registrado con éxito!"), backgroundColor: Colors.green),
+          );
+
+          await Future.delayed(Duration(seconds: 1));
+
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomePage()),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Error al registrar cliente"), backgroundColor: Colors.red),
+          );
+        }
       } catch (error) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Error de conexión: $error"), backgroundColor: Colors.red),
@@ -67,7 +80,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
                 children: [
                   CircleAvatar(
                     radius: 50,
-                    backgroundColor: Colors.blueAccent.withOpacity(0.2),
+                    backgroundColor: Colors.blueAccent.withValues(alpha: 0.2),
                     child: Icon(
                       Icons.person_add,
                       color: Colors.blueAccent,
@@ -81,7 +94,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    shadowColor: Colors.blueAccent.withOpacity(0.2),
+                    shadowColor: Colors.blueAccent.withValues(alpha: 0.2),
                     child: Padding(
                       padding: EdgeInsets.all(context.dimensions[Dimension.large]!),
                       child: Form(
@@ -148,7 +161,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
                                       style: TextStyle(
                                         fontSize: context.fontSizes[FontSize.button],
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.white,
+                                        color: Colors.blueAccent,
                                       ),
                                     ),
                                   ),
