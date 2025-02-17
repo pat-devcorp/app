@@ -8,12 +8,12 @@ String welcomeToJson(List<ClientModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class ClientModel {
-  int id;
+  int ? id;
   String name;
   String email;
 
   ClientModel({
-    required this.id,
+    this.id,
     required this.name,
     required this.email,
   });
