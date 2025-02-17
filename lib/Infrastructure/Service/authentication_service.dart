@@ -17,7 +17,7 @@ class AuthenticationService implements IAuthenticationService {
   Future<Response> login(
       {required String email, required String password}) async {
     final url = Uri.parse(apiHost + ApiRoute.login.message);
-
+    log('🔄 Response url: $url');
     try {
       final response = await http.post(
         url,
