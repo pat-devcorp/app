@@ -26,7 +26,7 @@ class ClientService {
     }
   }
 
-   Future<bool> createClient(ClientModel client) async {
+   Future<bool> registerClient(ClientModel client) async {
     try {
       final response = await _dio.post(
         _baseUrl,

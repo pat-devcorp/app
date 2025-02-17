@@ -34,7 +34,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
       try {
         ClientModel newClient = ClientModel(name: name, email: email);
 
-        bool success = await _clientService.createClient(newClient);
+        bool success = await _clientService.registerClient(newClient);
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
