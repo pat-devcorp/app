@@ -29,17 +29,87 @@ class _ClientListState extends State<ClientList> {
     });
   }
 
+  // Muestra un diálogo para editar un cliente
+  Future<void> _showEditDialog(ClientModel client) async {
+    // Controladores para los campos del formulario
+    final TextEditingController idController =
+        TextEditingController(text: client.id.toString());
+    final TextEditingController nameController =
+        TextEditingController(text: client.name);
+    final TextEditingController emailController =
+        TextEditingController(text: client.email);
+
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Editar Cliente'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Si quieres que el ID también se pueda editar, lo dejas como TextField habilitado
+                // Si no, solo lo muestras como "readOnly"
+                TextField(
+                  controller: idController,
+                  decoration: const InputDecoration(labelText: 'ID'),
+                  readOnly: true, // ID inmutable, puedes habilitarlo si lo deseas
+                ),
+                TextField(
+                  controller: nameController,
+                  decoration: const InputDecoration(labelText: 'Nombre'),
+                ),
+                TextField(
+                  controller: emailController,
+                  decoration: const InputDecoration(labelText: 'Email'),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(), // Cerrar diálogo
+              child: const Text('Cancelar'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                // Construimos el modelo con la información actualizada
+                final updatedClient = ClientModel(
+                  id: client.id, // O también int.parse(idController.text) si lo permites
+                  name: nameController.text,
+                  email: emailController.text,
+                );
+
+                try {
+                  await _clientService.updateClient(updatedClient);
+                  // Cerrar el diálogo después de actualizar
+                  Navigator.of(context).pop();
+                  // Refresca la lista
+                  _refreshData();
+                } catch (e) {
+                  // Manejo de errores, puedes mostrar un SnackBar o similar
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Error al actualizar: $e')),
+                  );
+                }
+              },
+              child: const Text('Guardar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BodyWidget(
       body: () => Center(
         child: SingleChildScrollView(
-          // Permite desplazar el contenido si excede la altura de la pantalla
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FutureBuilder<List<ClientModel>>(
                   future: _futureClients,
@@ -73,48 +143,42 @@ class _ClientListState extends State<ClientList> {
   }
 
   Widget _buildFixedHeaderTable(BuildContext context, List<ClientModel> clients) {
-    // Cabeceras con Align para alinear texto a la izquierda
+    // Cabeceras
     final columns = [
       DataColumn(
         label: Align(
           alignment: Alignment.centerLeft,
-          child: Text(
-            'ID',
-            style: const TextStyle(color: Colors.white),
-          ),
+          child: Text('ID', style: const TextStyle(color: Colors.white)),
         ),
       ),
       DataColumn(
         label: Align(
           alignment: Alignment.centerLeft,
-          child: Text(
-            'Nombre',
-            style: const TextStyle(color: Colors.white),
-          ),
+          child: Text('Nombre', style: const TextStyle(color: Colors.white)),
         ),
       ),
       DataColumn(
         label: Align(
           alignment: Alignment.centerLeft,
-          child: Text(
-            'Email',
-            style: const TextStyle(color: Colors.white),
-          ),
+          child: Text('Email', style: const TextStyle(color: Colors.white)),
         ),
       ),
-      // Nueva columna para el botón de Eliminar
+      // Nueva columna para "Editar"
       DataColumn(
         label: Align(
           alignment: Alignment.center,
-          child: Text(
-            'Eliminar',
-            style: const TextStyle(color: Colors.white),
-          ),
+          child: Text('Editar', style: const TextStyle(color: Colors.white)),
+        ),
+      ),
+      // Columna "Eliminar"
+      DataColumn(
+        label: Align(
+          alignment: Alignment.center,
+          child: Text('Eliminar', style: const TextStyle(color: Colors.white)),
         ),
       ),
     ];
 
-    // Filas, cada DataCell con Align a la izquierda excepto el botón
     final rows = clients.map((c) {
       return DataRow(
         cells: [
@@ -134,6 +198,16 @@ class _ClientListState extends State<ClientList> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(c.email),
+            ),
+          ),
+          // Celda para el botón de Editar
+          DataCell(
+            Align(
+              alignment: Alignment.center,
+              child: IconButton(
+                icon: const Icon(Icons.edit, color: Colors.blue),
+                onPressed: () => _showEditDialog(c),
+              ),
             ),
           ),
           // Celda para el botón de Eliminar
@@ -159,13 +233,11 @@ class _ClientListState extends State<ClientList> {
       elevation: 4.0,
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: ConstrainedBox(
-        // 50% del alto de la pantalla para la tabla
         constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.4,
+          maxHeight: MediaQuery.of(context).size.height * 0.47,
         ),
         child: Column(
           children: [
-            // Cuerpo
             Expanded(
               child: SingleChildScrollView(
                 controller: _verticalScrollController,
@@ -175,7 +247,7 @@ class _ClientListState extends State<ClientList> {
                   scrollDirection: Axis.horizontal,
                   child: DataTable(
                     columnSpacing: 20,
-                    headingRowHeight: 50, // Para no repetir cabecera
+                    headingRowHeight: 50,
                     headingRowColor: MaterialStateProperty.all(Colors.black),
                     columns: columns,
                     rows: rows,
