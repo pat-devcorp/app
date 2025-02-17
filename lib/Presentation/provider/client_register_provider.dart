@@ -1,5 +1,4 @@
 import 'package:app/Application/State/client_register_state.dart';
-import 'package:app/Domain/Model/response.dart';
 import 'package:app/Infrastructure/Service/client_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';

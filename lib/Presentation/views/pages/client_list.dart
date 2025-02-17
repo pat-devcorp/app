@@ -144,7 +144,7 @@ class _ClientListState extends State<ClientList> {
                 icon: const Icon(Icons.delete, color: Colors.red),
                 onPressed: () async {
                   // Puedes agregar aquí un diálogo de confirmación si lo deseas
-                  await _clientService.deleteClient(c.id);
+                  await _clientService.deleteClient(c.id!);
                   // Tras la eliminación, refresca la lista
                   _refreshData();
                 },
