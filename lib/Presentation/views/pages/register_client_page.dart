@@ -41,7 +41,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
 
         if (success) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Cliente registrado con éxito!"), backgroundColor: Colors.green),
+            SnackBar(content: Text(labels.successfulRegister), backgroundColor: Colors.green),
           );
 
           await Future.delayed(Duration(seconds: 1));
@@ -144,7 +144,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
                                   return "Por favor, ingresa el correo";
                                 }
                                 if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(value)) {
-                                  return "Correo inválido";
+                                  return labels.invalidEmail;
                                 }
                                 return null;
                               },
