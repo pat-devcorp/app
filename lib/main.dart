@@ -1,3 +1,4 @@
+import 'package:app/Presentation/views/pages/register_client_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: brightnessMode,
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: RegisterClientPage(),
     );
   }
 }
