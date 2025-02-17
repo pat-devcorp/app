@@ -14,21 +14,19 @@ class ClientRegisterNotifier extends StateNotifier<ClientRegisterState> {
   ClientRegisterNotifier(this._clientService)
       : super(ClientRegisterState.idle);
 
-  Future<void> registerClient(
-      {required String name, required String email}) async {
-    state = ClientRegisterState.loading;
+  // Future<void> registerClient({required String name, required String email}) async {
+  //   state = ClientRegisterState.loading;
 
-    try {
-      Response result =
-          await _clientService.registerClient(name: name, email: email);
+  //   try {
+  //     Response result = await _clientService.registerClient(name: name, email: email);
 
-      if (result.success) {
-        state = ClientRegisterState.registered;
-      } else {
-        state = ClientRegisterState.error;
-      }
-    } catch (e) {
-      state = ClientRegisterState.error;
-    }
-  }
+  //     if (result.success) {
+  //       state = ClientRegisterState.registered;
+  //     } else {
+  //       state = ClientRegisterState.error;
+  //     }
+  //   } catch (e) {
+  //     state = ClientRegisterState.error;
+  //   }
+  // }
 }

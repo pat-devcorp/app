@@ -14,6 +14,9 @@ class UiLabels {
   final String home;
   final String welcomeTo9780Bitcoin;
   final String logout;
+  final String name;
+  final String email;
+  final String register;
 
   UiLabels({
     required this.menuItemHome,
@@ -30,7 +33,10 @@ class UiLabels {
     required this.registerClient,
     required this.home,
     required this.welcomeTo9780Bitcoin,
-    required this.logout
+    required this.logout,
+    required this.name,
+    required this.email,
+    required this.register,
   });
 
   factory UiLabels.fromJson(Map<String, dynamic> json) {
@@ -49,7 +55,10 @@ class UiLabels {
       registerClient: json["registerClient"] ?? "Register client",
       home: json["home"] ?? "home",
       welcomeTo9780Bitcoin: json["welcomeTo9780Bitcoin"] ?? "Welcome to 9780Bitcoin",
-      logout: json["logout"] ?? "logout"
+      logout: json["logout"] ?? "logout",
+      name: json['name'] ?? 'name',
+      email: json['email'] ?? 'email',
+      register: json['register'] ?? 'register',
     );
   }
 }

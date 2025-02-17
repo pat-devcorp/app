@@ -1,6 +1,5 @@
 import 'package:app/Domain/Model/client_model.dart';
 import 'package:dio/dio.dart';
-// Ajusta la ruta
 
 class ClientService {
   final Dio _dio = Dio();
@@ -21,7 +20,7 @@ class ClientService {
       } else {
         throw Exception('Error al cargar datos. Código: ${response.statusCode}');
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       throw Exception('Error en la petición: ${e.message}');
     }
   }
