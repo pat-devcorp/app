@@ -1,12 +1,11 @@
 import 'package:app/Presentation/views/pages/home.dart';
-
-import 'page_data.dart';
-import 'model/pages.dart';
-import 'model/html_data.dart';
-import '../../Presentation/views/pages/login.dart';
-
-import 'package:page_transition/page_transition.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+
+import '../../Presentation/views/pages/login.dart';
+import 'html_data.dart';
+import 'page_data.dart';
+import 'pages.dart';
 
 class PageRouter {
   static final Map<Pages, PageData> _pageMap = {
@@ -19,7 +18,7 @@ class PageRouter {
     Pages.home: PageData(
       key: Pages.home,
       unbound: true,
-      page: const HomePage(),
+      page: HomePage(),
       html: const HTMLData(route: '/home/'),
     ),
   };

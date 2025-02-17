@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'model/html_data.dart';
-import 'model/pages.dart';
+import 'html_data.dart';
+import 'pages.dart';
 
 class PageData {
   final bool unbound;
@@ -28,6 +28,6 @@ class PageData {
           type: transition,
           child: page,
         ),
-            (route) => false,
+        (route) => false,
       );
 }

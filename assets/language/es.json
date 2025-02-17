@@ -1,0 +1,9 @@
+{
+  "userLabel": "Usuario",
+  "passwordLabel": "Contraseña",
+  "loginButtonLabel": "Iniciar sesión",
+  "welcomeMessage": "¡Bienvenido!",
+  "logoutButtonLabel": "Cerrar sesión",
+  "operationSuccess": "¡Operación exitosa!",
+  "operationError": "¡Algo salió mal!"
+}

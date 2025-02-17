@@ -1,0 +1,9 @@
+{
+  "userLabel": "User",
+  "passwordLabel": "Password",
+  "loginButtonLabel": "Login",
+  "welcomeMessage": "Welcome!",
+  "logoutButtonLabel": "Logout",
+  "operationSuccess": "Operation Successful!",
+  "operationError": "Something went wrong!"
+}
