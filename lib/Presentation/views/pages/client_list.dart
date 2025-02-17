@@ -137,7 +137,7 @@ class _ClientListState extends State<ClientList> {
       child: ConstrainedBox(
         // 50% del alto de la pantalla para la tabla
         constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.5,
+          maxHeight: MediaQuery.of(context).size.height * 0.4,
         ),
         child: Column(
           children: [
