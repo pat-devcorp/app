@@ -1,9 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:app/Domain/Model/response.dart';
 import 'package:app/Infrastructure/Service/client_service.dart';
 import 'package:app/Presentation/router/pages.dart';
 import 'package:app/Presentation/router/router.dart';
 import 'package:app/Presentation/views/style/dimension.dart';
 import 'package:app/Presentation/views/style/font_size.dart';
+import 'package:app/Presentation/views/widget/body_widget.dart';
 import 'package:app/Presentation/views/widget/custom_bottom_navigation_bar.dart';
 import 'package:app/Presentation/views/widget/notification_snack_bar.dart';
 import 'package:flutter/material.dart';
@@ -42,11 +45,8 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Registro de Cliente", style: TextStyle(fontSize: context.fontSizes[FontSize.headline4])),
-      ),
-      body: Padding(
+    return BodyWidget(
+      body: () => Padding(
         padding: EdgeInsets.all(context.dimensions[Dimension.medium]!),
         child: Form(
           key: _formKey,
@@ -87,12 +87,6 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        selectedIndex: 0,
-        onItemTapped: (index) {
-
-        },
       ),
     );
   }

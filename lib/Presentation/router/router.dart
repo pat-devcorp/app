@@ -1,4 +1,5 @@
 import 'package:app/Presentation/views/pages/home.dart';
+import 'package:app/Presentation/views/pages/register_client_page.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -24,8 +25,14 @@ class PageRouter {
     Pages.registerClient: PageData(
       key: Pages.registerClient,
       unbound: false,
+      page: RegisterClientPage(),
+      html: const HTMLData(route: 'client/register/'),
+    ),
+    Pages.clientsList: PageData(
+      key: Pages.clientsList,
+      unbound: false,
       page: HomePage(),
-      html: const HTMLData(route: '/register/'),
+      html: const HTMLData(route: '/client/list/'),
     ),
   };
 

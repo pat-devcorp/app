@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: brightnessMode,
       debugShowCheckedModeBanner: false,
-      home: RegisterClientPage(),
+      home: LoginPage(),
     );
   }
 }
