@@ -24,4 +24,19 @@ class ClientService {
       throw Exception('Error en la petición: ${e.message}');
     }
   }
+
+  Future<void> deleteClient(int id) async {
+    try {
+      final response = await _dio.delete('http://192.168.4.177:8080/client/$id');
+
+      if (response.statusCode == 200) {
+        // Eliminación exitosa
+        return;
+      } else {
+        throw Exception('Error al eliminar el cliente. Código: ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      throw Exception('Error en la petición: ${e.message}');
+    }
+  }
 }

@@ -34,7 +34,7 @@ class _ClientListState extends State<ClientList> {
     return BodyWidget(
       body: () => Center(
         child: SingleChildScrollView(
-          // Si el contenido excede la altura de la pantalla, se podrá desplazar
+          // Permite desplazar el contenido si excede la altura de la pantalla
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             child: Column(
@@ -102,30 +102,57 @@ class _ClientListState extends State<ClientList> {
           ),
         ),
       ),
+      // Nueva columna para el botón de Eliminar
+      DataColumn(
+        label: Align(
+          alignment: Alignment.center,
+          child: Text(
+            'Eliminar',
+            style: const TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
     ];
 
-    // Filas, cada DataCell con Align a la izquierda
+    // Filas, cada DataCell con Align a la izquierda excepto el botón
     final rows = clients.map((c) {
-      return DataRow(cells: [
-        DataCell(
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(c.id.toString()),
+      return DataRow(
+        cells: [
+          DataCell(
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(c.id.toString()),
+            ),
           ),
-        ),
-        DataCell(
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(c.name),
+          DataCell(
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(c.name),
+            ),
           ),
-        ),
-        DataCell(
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(c.email),
+          DataCell(
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(c.email),
+            ),
           ),
-        ),
-      ]);
+          // Celda para el botón de Eliminar
+          DataCell(
+            Align(
+              alignment: Alignment.center,
+              child: IconButton(
+                icon: const Icon(Icons.delete, color: Colors.red),
+                onPressed: () async {
+                  // Puedes agregar aquí un diálogo de confirmación si lo deseas
+                  await _clientService.deleteClient(c.id);
+                  // Tras la eliminación, refresca la lista
+                  _refreshData();
+                },
+              ),
+            ),
+          ),
+        ],
+      );
     }).toList();
 
     return Card(
@@ -162,4 +189,3 @@ class _ClientListState extends State<ClientList> {
     );
   }
 }
-          // headingRowColor: MaterialStateProperty.all(Colors.black),
