@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:flutter/material.dart';
 import 'package:app/Domain/Model/response.dart';
 import 'package:app/Infrastructure/Service/client_service.dart';
 import 'package:app/Presentation/router/pages.dart';
@@ -9,6 +8,7 @@ import 'package:app/Presentation/views/style/dimension.dart';
 import 'package:app/Presentation/views/style/font_size.dart';
 import 'package:app/Presentation/views/widget/body_widget.dart';
 import 'package:app/Presentation/views/widget/notification_snack_bar.dart';
+import 'package:flutter/material.dart';
 
 class RegisterClientPage extends StatefulWidget {
   const RegisterClientPage({super.key});
@@ -23,7 +23,6 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
   String email = '';
   bool _isLoading = false;
 
-//por mientras
   final ClientService _clientService = ClientService("http://192.168.4.177:8080");
 
   Future<void> _submitForm() async {
@@ -47,9 +46,6 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-
     return Scaffold(
       body: BodyWidget(
         body: () => Center(
@@ -61,21 +57,21 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
                 children: [
                   CircleAvatar(
                     radius: 50,
-                    backgroundColor: Color(0xFFaff21f).withOpacity(0.2),
+                    backgroundColor: Colors.blueAccent.withOpacity(0.2),
                     child: Icon(
                       Icons.person_add,
-                      color: Color(0xFFaff21f),
+                      color: Colors.blueAccent,
                       size: 50,
                     ),
                   ),
                   SizedBox(height: context.dimensions[Dimension.large]),
 
                   Card(
-                    elevation: 10,
+                    elevation: 8,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    shadowColor: Color(0xFFaff21f).withOpacity(0.3),
+                    shadowColor: Colors.blueAccent.withOpacity(0.2),
                     child: Padding(
                       padding: EdgeInsets.all(context.dimensions[Dimension.large]!),
                       child: Form(
@@ -88,7 +84,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
                               style: TextStyle(
                                 fontSize: context.fontSizes[FontSize.headline4],
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFFaff21f),
+                                color: Colors.blueAccent,
                               ),
                             ),
                             SizedBox(height: context.dimensions[Dimension.large]),
@@ -96,14 +92,9 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
                             TextFormField(
                               decoration: InputDecoration(
                                 labelText: "Nombre",
-                                prefixIcon: Icon(Icons.person, color: colorScheme.primary),
+                                prefixIcon: Icon(Icons.person, color: Colors.blueAccent),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                  borderSide: BorderSide(color: colorScheme.onSurfaceVariant),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  borderSide: BorderSide(color: colorScheme.primary, width: 2),
                                 ),
                               ),
                               validator: (value) {
@@ -119,14 +110,9 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
                             TextFormField(
                               decoration: InputDecoration(
                                 labelText: "Correo",
-                                prefixIcon: Icon(Icons.email, color: colorScheme.primary),
+                                prefixIcon: Icon(Icons.email, color: Colors.blueAccent),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                  borderSide: BorderSide(color: colorScheme.onSurfaceVariant),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  borderSide: BorderSide(color: colorScheme.primary, width: 2),
                                 ),
                               ),
                               keyboardType: TextInputType.emailAddress,
@@ -144,24 +130,33 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
                             SizedBox(height: context.dimensions[Dimension.large]),
 
                             _isLoading
-                                ? CircularProgressIndicator(color: Color(0xFFaff21f))
-                                : SizedBox(
+                                ? CircularProgressIndicator()
+                                : Container(
                                     width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      gradient: LinearGradient(
+                                        colors: [Colors.blueAccent, Colors.lightBlue],
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                      ),
+                                    ),
                                     child: ElevatedButton(
                                       onPressed: _submitForm,
                                       style: ElevatedButton.styleFrom(
                                         padding: EdgeInsets.symmetric(vertical: 15),
+                                        backgroundColor: Colors.transparent,
+                                        shadowColor: Colors.transparent,
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(12),
                                         ),
-                                        backgroundColor: Color(0xFFaff21f),
-                                        foregroundColor: colorScheme.onPrimary,
                                       ),
                                       child: Text(
                                         "Registrar",
                                         style: TextStyle(
                                           fontSize: context.fontSizes[FontSize.button],
                                           fontWeight: FontWeight.bold,
+                                          color: Colors.white,
                                         ),
                                       ),
                                     ),
