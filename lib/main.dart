@@ -1,3 +1,5 @@
+import 'dart:developer' show log;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,6 +26,7 @@ Future<void> main() async {
 
   Bootstrap bootstrap = Bootstrap(
       appVersion: dotenv.get('APP_VERSION'), apiHost: dotenv.get('API_HOST'));
+  log('Bootstrap load: $bootstrap');
   setupLocator(bootstrap, labels);
 
   runApp(
