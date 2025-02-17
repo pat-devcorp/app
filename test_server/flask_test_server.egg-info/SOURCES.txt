@@ -1,0 +1,7 @@
+main.py
+pyproject.toml
+flask_test_server.egg-info/PKG-INFO
+flask_test_server.egg-info/SOURCES.txt
+flask_test_server.egg-info/dependency_links.txt
+flask_test_server.egg-info/requires.txt
+flask_test_server.egg-info/top_level.txt
