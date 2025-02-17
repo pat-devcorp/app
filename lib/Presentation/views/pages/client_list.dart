@@ -1,5 +1,6 @@
 import 'package:app/Domain/Model/client_model.dart';
 import 'package:app/Infrastructure/Service/client_service.dart';
+import 'package:app/Presentation/views/widget/body_widget.dart';
 import 'package:flutter/material.dart';
 
 class ClientList extends StatefulWidget {
@@ -30,12 +31,8 @@ class _ClientListState extends State<ClientList> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Clientes'),
-        centerTitle: true,
-      ),
-      body: Center(
+    return BodyWidget(
+      body: () => Center(
         child: SingleChildScrollView(
           // Si el contenido excede la altura de la pantalla, se podrá desplazar
           child: Padding(
