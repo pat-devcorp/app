@@ -9,6 +9,10 @@ class UiLabels {
   final String logoutButtonLabel;
   final String operationSuccess;
   final String operationError;
+  final String clientList;
+  final String registerClient;
+  final String home;
+  final String welcomeTo9780Bitcoin;
 
   UiLabels({
     required this.menuItemHome,
@@ -21,6 +25,10 @@ class UiLabels {
     required this.logoutButtonLabel,
     required this.operationSuccess,
     required this.operationError,
+    required this.clientList,
+    required this.registerClient,
+    required this.home,
+    required this.welcomeTo9780Bitcoin
   });
 
   factory UiLabels.fromJson(Map<String, dynamic> json) {
@@ -35,6 +43,10 @@ class UiLabels {
       logoutButtonLabel: json['logoutButtonLabel'] ?? 'Logout',
       operationSuccess: json['operationSuccess'] ?? "Operation Successful!",
       operationError: json['operationError'] ?? "Something went wrong!",
+      clientList: json["clientList"] ?? "Client list",
+      registerClient: json["registerClient"] ?? "Register client",
+      home: json["home"] ?? "home",
+      welcomeTo9780Bitcoin: json["welcomeTo9780Bitcoin"] ?? "Welcome to 9780Bitcoin"
     );
   }
 }

@@ -8,5 +8,9 @@
   "welcomeMessage": "Bienvenido",
   "logoutButtonLabel": "Cerrar sesión",
   "operationSuccess": "¡Operación exitosa!",
-  "operationError": "¡Algo salió mal!"
+  "operationError": "¡Algo salió mal!",
+  "clientList": "Lista de clientes",
+  "registerClient": "Registrar cliente",
+  "home": "Inicio",
+  "welcomeTo9780Bitcoin": "Bienvenido a 9780Bitcoin"
 }

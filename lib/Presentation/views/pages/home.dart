@@ -1,8 +1,7 @@
-import '../widget/custom_bottom_navigation_bar.dart';
-
+import 'package:app/Presentation/language/ui_labels.dart';
+import 'package:app/Presentation/views/widget/body_widget.dart';
+import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
-
-
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,24 +11,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  final UiLabels labels = GetIt.instance<UiLabels>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text("Page ${_selectedIndex + 1}"),
-      ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
-      ),
+    return BodyWidget(
+      body: () => Text(labels.welcomeTo9780Bitcoin)
     );
   }
 }

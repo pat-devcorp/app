@@ -21,6 +21,12 @@ class PageRouter {
       page: HomePage(),
       html: const HTMLData(route: '/home/'),
     ),
+    Pages.registerClient: PageData(
+      key: Pages.registerClient,
+      unbound: false,
+      page: HomePage(),
+      html: const HTMLData(route: '/register/'),
+    ),
   };
 
   static const Duration duration = Duration(milliseconds: 300);
