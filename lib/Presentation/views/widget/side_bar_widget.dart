@@ -44,8 +44,8 @@ class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderS
             title: labels.home,
             isSelected: _selectedIndex == 1,
             onTap: () {
-              setState(() => _selectedIndex = 1);
               PageRouter.goToPage(context, page: Pages.home);
+              setState(() => _selectedIndex = 1);
             },
           ),
           MenuItem(
@@ -53,8 +53,8 @@ class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderS
             title: labels.clientList,
             isSelected: _selectedIndex == 2,
             onTap: () {
-              setState(() => _selectedIndex = 2);
               PageRouter.goToPage(context, page: Pages.clientsList);
+              setState(() => _selectedIndex = 2);
             }
           ),
           MenuItem(
@@ -62,18 +62,18 @@ class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderS
             title: labels.registerClient,
             isSelected: _selectedIndex == 3,
             onTap: () {
-              setState(() => _selectedIndex = 3);
               PageRouter.goToPage(context, page: Pages.registerClient);
+              setState(() => _selectedIndex = 3);
             }
           ),
           _buildUpdateCard(),
           MenuItem(
             icon: Icons.logout_outlined, 
-            title: labels.registerClient,
+            title: labels.logout,
             isSelected: _selectedIndex == 4,
             onTap: () {
-              setState(() => _selectedIndex = 4);
               PageRouter.goToPage(context, page: Pages.login);
+              setState(() => _selectedIndex = 4);
             }
           ),
           SizedBox(height: 20)

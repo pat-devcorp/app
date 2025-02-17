@@ -12,5 +12,6 @@
   "clientList": "Lista de clientes",
   "registerClient": "Registrar cliente",
   "home": "Inicio",
-  "welcomeTo9780Bitcoin": "Bienvenido a 9780Bitcoin"
+  "welcomeTo9780Bitcoin": "Bienvenido a 9780Bitcoin",
+  "logout": "Cerrar sesión"
 }
