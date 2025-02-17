@@ -1,9 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '/Domain/Model/bootstrap.dart';
-import '/Presentation/views/pages/login.dart';
+import 'Presentation/views/pages/login.dart';
 import 'Presentation/language/label_loader.dart';
 import 'Presentation/language/ui_labels.dart';
 import 'Presentation/views/style/theme.dart';
@@ -25,6 +27,8 @@ Future<void> main() async {
   Bootstrap bootstrap = Bootstrap(
       appVersion: dotenv.get('APP_VERSION'), apiHost: dotenv.get('API_HOST'));
   setupLocator(bootstrap, labels);
+
+  log('Bootstrap load: $bootstrap');
 
   runApp(
     ProviderScope(

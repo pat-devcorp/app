@@ -9,10 +9,8 @@ import logging
 app = Flask(__name__)
 CORS(app)
 
-# In-memory user database (for demonstration purposes only!)
-# In a real application, you would use a proper database.
 users = {
-    "test@example.com": "password123"  # Example user
+    "test@example.com": "password123"
 }
 
 def all_required_services_are_running():
@@ -42,24 +40,6 @@ def health_check():
 
         return jsonify(error_data), 500
 
-
-@app.route('/client', methods=['GET'])
-def get_client():
-    client = { "name": "Braulio", "email": "a@gmail.com" }
-    return jsonify(client), 200
-
-@app.route('/client', methods=['POST'])
-def post_client():
-    data = request.get_json()
-    app.logger.warning("Received data:", data)
-    name = data.get('name')
-    email = data.get('email')
-
-    if name != "Braulio" or email != "a@gmail.com":
-        return jsonify({"message": "error"}), 500
-    return jsonify({"message": "ok"}), 200
-    
-
 @app.route('/login', methods=['POST'])
 def login():
     try:
@@ -88,4 +68,4 @@ def login():
         return jsonify({"message": "An error occurred"}), 500
     
 if __name__ == "__main__":
-    app.run(debug=True, port=9090)
+    app.run(debug=True, port=9091)

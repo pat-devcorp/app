@@ -11,7 +11,7 @@ void main() {
       };
 
       final account =
-          FactoryAuthentication.fromJson(json); // Call fromJson on the instance
+          FactoryAuthentication.fromJson(json);
 
       expect(account.email, '12345');
       expect(account.password, 'user001');

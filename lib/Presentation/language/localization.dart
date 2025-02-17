@@ -1,5 +1,4 @@
 enum Localization {
-  english("en"),
   spanish("es");
 
   final String message;
