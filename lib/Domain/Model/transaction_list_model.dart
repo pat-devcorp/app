@@ -1,6 +1,6 @@
 class TransactionList {
     int transactionId;
-    int amount;
+    double amount;
     int clientId;
 
     TransactionList({

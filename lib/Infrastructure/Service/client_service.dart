@@ -3,24 +3,34 @@ import 'package:dio/dio.dart';
 
 class ClientService {
   final Dio _dio = Dio();
-    final String _baseUrl = 'http://192.168.4.177:8080/client';
+    final String _baseUrl = 'http://192.168.4.177:8080/api/client';
 
-  Future<List<ClientModel>> fetchClients() async {
-    try {
-      final response = await _dio.get('http://192.168.4.177:8080/client');
-      if (response.statusCode == 200) {
-        final data = response.data;
-        List<ClientModel> clients = (data as List)
-            .map((item) => ClientModel.fromJson(item))
-            .toList();
-        return clients;
-      } else {
-        throw Exception('Error al cargar datos. Código: ${response.statusCode}');
+    Future<List<ClientModel>> fetchClients() async {
+      try {
+        final response = await _dio.get(_baseUrl);
+
+        if (response.statusCode == 200) {
+          if (response.data != null && response.data is List) {
+            return (response.data as List)
+                .map((item) => ClientModel.fromJson(item))
+                .toList();
+          } else {
+            throw Exception('Formato de datos incorrecto. Esperado: Lista de objetos JSON');
+          }
+        } else {
+          throw Exception('Error al cargar datos. Código: ${response.statusCode}');
+        }
+      } on DioException catch (e) {
+        String errorMsg = 'Error en la petición';
+        if (e.response != null) {
+          errorMsg += ' - Código: ${e.response?.statusCode}';
+        }
+        errorMsg += ' - Mensaje: ${e.message}';
+        throw Exception(errorMsg);
+      } catch (e) {
+        throw Exception('Error desconocido: $e');
       }
-    } on DioException catch (e) {
-      throw Exception('Error en la petición: ${e.message}');
     }
-  }
 
   Future<bool> registerClients(List<ClientModel> clients) async {
     try {
@@ -59,7 +69,7 @@ class ClientService {
       final response = await _dio.post(
         'http://192.168.4.177:8080/client',
         data: {
-          'id': client.id,
+          'id': client.clientId,
           'name': client.name,
           'email': client.email,
         },
