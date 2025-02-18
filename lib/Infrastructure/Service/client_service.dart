@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 
 class ClientService {
   final Dio _dio = Dio();
-    final String _baseUrl = 'http://192.168.4.177:8080/client';
 
   Future<List<ClientModel>> fetchClients() async {
     try {
