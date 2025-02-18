@@ -22,7 +22,7 @@ extension TextTypeExtension on TextType {
       overflow   : TextOverflow.ellipsis,
     ),
     TextType.normal: _baseFont.copyWith(
-      fontSize   : 18,
+      fontSize   : 15,
       color      : Colors.black87,
       fontWeight : FontWeight.w500,
       overflow   : TextOverflow.ellipsis,
