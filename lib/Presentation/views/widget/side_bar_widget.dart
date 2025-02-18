@@ -16,7 +16,6 @@ class SideBarWidget extends StatefulWidget {
 }
 
 class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderStateMixin {
-  int _selectedIndex = 0;
   bool isExpanded = true;
   bool expanding = false;
   final UiLabels labels = GetIt.instance<UiLabels>();
@@ -91,7 +90,6 @@ class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderS
                           icon       : Icons.dashboard, 
                           onTap      : () {
                             PageRouter.goToPage(context, ref, page: Pages.home);
-                            setState(() => _selectedIndex = 1);
                           },
                         ),
                         MenuItem(
@@ -102,7 +100,6 @@ class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderS
                           icon       : Icons.person, 
                           onTap      : () {
                             PageRouter.goToPage(context, ref, page: Pages.clients);
-                            setState(() => _selectedIndex = 2);
                           }
                         ),
                         MenuItem(
@@ -113,7 +110,6 @@ class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderS
                           icon       : Icons.person_add_sharp, 
                           onTap      : () {
                             PageRouter.goToPage(context, ref, page: Pages.transactions);
-                            setState(() => _selectedIndex = 3);
                           }
                         ),
                         MenuItem(
@@ -124,7 +120,6 @@ class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderS
                           icon       : Icons.logout_outlined, 
                           onTap      : () {
                             PageRouter.goToPage(context, ref, page: Pages.login);
-                            setState(() => _selectedIndex = 4);
                           }
                         ),
                       ],
