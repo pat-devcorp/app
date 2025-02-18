@@ -1,12 +1,12 @@
 class TransactionList {
-    int transactionId;
+    int ?transactionId;
     double amount;
-    int clientId;
+    int ?clientId;
 
     TransactionList({
-        required this.transactionId,
+         this.transactionId,
         required this.amount,
-        required this.clientId,
+         this.clientId,
     });
 
     factory TransactionList.fromJson(Map<String, dynamic> json) => TransactionList(
