@@ -9,12 +9,14 @@
   "logoutButtonLabel": "Cerrar sesión",
   "operationSuccess": "¡Operación exitosa!",
   "operationError": "¡Algo salió mal!",
-  "clientList": "Lista de clientes",
-  "registerClient": "Registrar cliente",
+  "clients": "Clientes",
+  "transactions": "Transacciones",
   "home": "Inicio",
   "welcomeTo9780Bitcoin": "Bienvenido a 9780Bitcoin",
   "logout": "Cerrar sesión",
   "name": "Nombre",
   "email": "Correo",
-  "register": "Registrar"
+  "register": "Registrar",
+  "invalidEmail":"Correo inválido",
+  "successfulRegister":"Cliente registrado con éxito!"
 }

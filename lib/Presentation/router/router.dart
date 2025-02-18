@@ -1,6 +1,6 @@
 import 'package:app/Presentation/views/pages/client_list.dart';
 import 'package:app/Presentation/views/pages/home.dart';
-import 'package:app/Presentation/views/pages/register_client_page.dart';
+import 'package:app/Presentation/views/pages/register_clients_page.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -23,14 +23,14 @@ class PageRouter {
       page: HomePage(),
       html: const HTMLData(route: '/home/'),
     ),
-    Pages.registerClient: PageData(
-      key: Pages.registerClient,
+    Pages.clients: PageData(
+      key: Pages.clients,
       unbound: false,
-      page: RegisterClientPage(),
+      page: RegisterClientsPage(),
       html: const HTMLData(route: 'client/register/'),
     ),
-    Pages.clientsList: PageData(
-      key: Pages.clientsList,
+    Pages.transactions: PageData(
+      key: Pages.transactions,
       unbound: false,
       page: ClientList(),
       html: const HTMLData(route: '/client/list/'),
