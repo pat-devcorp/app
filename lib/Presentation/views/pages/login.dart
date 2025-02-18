@@ -38,7 +38,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       if (next == AuthenticationState.authenticated) {
         NotificationSnackBar.show(
             context, labels.operationSuccess, SnackBarType.success);
-        PageRouter.goToPage(context, page: Pages.home);
+        PageRouter.goToPage(context, ref, page: Pages.home);
       } else if (next == AuthenticationState.error) {
         NotificationSnackBar.show(
             context, labels.operationError, SnackBarType.error);
