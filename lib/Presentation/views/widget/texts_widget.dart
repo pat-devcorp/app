@@ -34,7 +34,7 @@ extension TextTypeExtension on TextType {
       overflow   : TextOverflow.ellipsis,
     ),
     TextType.title2: _baseFont.copyWith(
-      fontSize   : 25,
+      fontSize   : 20,
       color      : Colors.black87,
       fontWeight : FontWeight.w600,
       overflow   : TextOverflow.ellipsis,

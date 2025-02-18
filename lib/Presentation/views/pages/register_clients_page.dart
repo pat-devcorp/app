@@ -85,92 +85,92 @@ class _RegisterClientsPageState extends State<RegisterClientsPage> {
           child: SingleChildScrollView(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 800),
-              child: Container(
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color        : Colors.black.withValues(alpha: 0.1),
-                      blurRadius   : 10,
-                      spreadRadius : 5,
-                      offset       : const Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisSize       : MainAxisSize.min,
-                    crossAxisAlignment : CrossAxisAlignment.center,
-                    children: [
-                      CustomText(
-                        text  : labels.register,
-                        type  : TextType.title1,
-                        color : Colors.green,
+                child: Container(
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color        : Colors.black.withValues(alpha: 0.1),
+                        blurRadius   : 10,
+                        spreadRadius : 5,
+                        offset       : const Offset(0, 4),
                       ),
-                      const SizedBox(height: 20),
-                      InputWidget(
-                        title      : "${labels.clients}:",
-                        controller : _nameController,
-                        label      : labels.name,
-                        icon       : Icons.person,
-                        validator  : (value) {
-                          if (value == null || value.isEmpty) return "Ingrese el nombre";
-                          return null;
-                        },
-                        textInputAction: TextInputAction.next,
-                      ),
-                      const SizedBox(height: 10),
-                      InputWidget(
-                        title      : "${labels.lastname}:",
-                        controller : _lastnameController,
-                        label      : labels.lastname,
-                        icon       : Icons.person_outline,
-                        validator  : (value) {
-                          if (value == null || value.isEmpty) return "Ingrese el apellido";
-                          return null;
-                        },
-                        textInputAction: TextInputAction.next,
-                      ),
-                      const SizedBox(height: 10),
-                      InputWidget(
-                        title        : "${labels.email}:",
-                        controller   : _emailController,
-                        label        : labels.email,
-                        icon         : Icons.email,
-                        keyboardType : TextInputType.emailAddress,
-                        validator    : (value) {
-                          if (value == null || value.isEmpty) return "Ingrese el correo";
-                          if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(value)) {
-                            return "Correo inválido";
-                          }
-                          return null;
-                        },
-                        textInputAction: TextInputAction.done,
-                      ),
-                      const SizedBox(height: 20),
-                      CustomButton.green(
-                        text: "Agregar Cliente",
-                        onPressed: _addClient,
-                      ),
-                      if (_clients.isNotEmpty) ...[
+                    ],
+                  ),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisSize       : MainAxisSize.min,
+                      crossAxisAlignment : CrossAxisAlignment.center,
+                      children: [
+                        CustomText(
+                          text  : labels.register,
+                          type  : TextType.title1,
+                          color : Colors.green,
+                        ),
                         const SizedBox(height: 20),
-                        _buildClientsTable(),
+                        InputWidget(
+                          title      : "${labels.clients}:",
+                          controller : _nameController,
+                          label      : labels.name,
+                          icon       : Icons.person,
+                          validator  : (value) {
+                            if (value == null || value.isEmpty) return "Ingrese el nombre";
+                            return null;
+                          },
+                          textInputAction: TextInputAction.next,
+                        ),
+                        const SizedBox(height: 10),
+                        InputWidget(
+                          title      : "${labels.lastname}:",
+                          controller : _lastnameController,
+                          label      : labels.lastname,
+                          icon       : Icons.person_outline,
+                          validator  : (value) {
+                            if (value == null || value.isEmpty) return "Ingrese el apellido";
+                            return null;
+                          },
+                          textInputAction: TextInputAction.next,
+                        ),
+                        const SizedBox(height: 10),
+                        InputWidget(
+                          title        : "${labels.email}:",
+                          controller   : _emailController,
+                          label        : labels.email,
+                          icon         : Icons.email,
+                          keyboardType : TextInputType.emailAddress,
+                          validator    : (value) {
+                            if (value == null || value.isEmpty) return "Ingrese el correo";
+                            if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(value)) {
+                              return "Correo inválido";
+                            }
+                            return null;
+                          },
+                          textInputAction: TextInputAction.done,
+                        ),
                         const SizedBox(height: 20),
                         CustomButton.green(
-                          text: "Registrar Clientes",
-                          onPressed: _submitClients,
+                          text: "Agregar Cliente",
+                          onPressed: _addClient,
                         ),
+                        if (_clients.isNotEmpty) ...[
+                          const SizedBox(height: 20),
+                          _buildClientsTable(),
+                          const SizedBox(height: 20),
+                          CustomButton.green(
+                            text: "Registrar Clientes",
+                            onPressed: _submitClients,
+                          ),
+                        ],
                       ],
-                    ],
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-        ),
       ),
     );
   }
