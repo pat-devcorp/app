@@ -45,7 +45,7 @@ def health_check():
 
 @app.route('/client', methods=['GET'])
 def get_client():
-    client = { "name": "Braulio", "email": "a@gmail.com" }
+    client = [{ "name": "Braulio", "email": "a@gmail.com" }]
     return jsonify(client), 200
 
 @app.route('/client', methods=['POST'])
