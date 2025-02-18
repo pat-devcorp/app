@@ -1,14 +1,28 @@
 import 'dart:async';
-
+import 'package:app/Presentation/router/pages.dart';
 import 'package:app/Presentation/views/widget/app_bar_widget.dart';
 import 'package:app/Presentation/views/widget/side_bar_widget.dart';
 import 'package:flutter/material.dart';
 
+class Tabs {
+  String name;
+  Icon icon;
+  Pages page;
+
+  Tabs({
+    required this.name,
+    required this.icon,
+    required this.page
+  });
+}
+
 class BodyWidget extends StatefulWidget {
   final Widget Function() body;
+  final List<Tabs> tabs; 
 
   const BodyWidget ({
     required this.body,
+    this.tabs = const [],
     super.key
   });
 

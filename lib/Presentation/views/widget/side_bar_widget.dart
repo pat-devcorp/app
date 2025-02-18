@@ -1,4 +1,5 @@
 import 'package:app/Presentation/language/ui_labels.dart';
+import 'package:app/Presentation/riverpods/page_riverpod.dart';
 import 'package:app/Presentation/riverpods/theme_riverpod.dart'; 
 import 'package:app/Presentation/router/pages.dart';
 import 'package:app/Presentation/router/router.dart';
@@ -83,46 +84,46 @@ class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderS
                           ),
                         ),
                         MenuItem(
-                          isSelected : _selectedIndex == 1,
+                          page       : Pages.home,
                           isExpanded : isExpanded,
                           expanding  : expanding,
                           title      : labels.home,
                           icon       : Icons.dashboard, 
                           onTap      : () {
-                            PageRouter.goToPage(context, page: Pages.home);
+                            PageRouter.goToPage(context, ref, page: Pages.home);
                             setState(() => _selectedIndex = 1);
                           },
                         ),
                         MenuItem(
-                          isSelected : _selectedIndex == 2,
+                          page       : Pages.clients,
                           isExpanded : isExpanded,
                           expanding  : expanding,
                           title      : labels.clients,
                           icon       : Icons.person, 
                           onTap      : () {
-                            PageRouter.goToPage(context, page: Pages.clients);
+                            PageRouter.goToPage(context, ref, page: Pages.clients);
                             setState(() => _selectedIndex = 2);
                           }
                         ),
                         MenuItem(
-                          isSelected : _selectedIndex == 3,
+                          page       : Pages.transactions,
                           isExpanded : isExpanded,
                           expanding  : expanding,
                           title      : labels.transactions,
                           icon       : Icons.person_add_sharp, 
                           onTap      : () {
-                            PageRouter.goToPage(context, page: Pages.transactions);
+                            PageRouter.goToPage(context, ref, page: Pages.transactions);
                             setState(() => _selectedIndex = 3);
                           }
                         ),
                         MenuItem(
-                          isSelected : _selectedIndex == 4,
+                          page       : Pages.login,
                           isExpanded : isExpanded,
                           expanding  : expanding,
                           title      : labels.logout,
                           icon       : Icons.logout_outlined, 
                           onTap      : () {
-                            PageRouter.goToPage(context, page: Pages.login);
+                            PageRouter.goToPage(context, ref, page: Pages.login);
                             setState(() => _selectedIndex = 4);
                           }
                         ),
@@ -137,7 +138,7 @@ class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderS
                     icon       : ref.watch(themeRiverpodProvider) == ThemeMode.dark ? Icons.dark_mode_outlined : Icons.light_mode_outlined,
                     label      : ref.watch(themeRiverpodProvider) == ThemeMode.dark ? "Modo oscuro" : "Modo claro",
                     value      : ref.watch(themeRiverpodProvider) == ThemeMode.dark,
-                    onChanged  : (bool value) => ref.read(themeRiverpodProvider.notifier).toggleTheme(),
+                    onChanged  : (bool value) => ref.read(themeRiverpodProvider.notifier).changeTheme(),
                     isExpanded : isExpanded,
                   ),
                 ),
@@ -246,10 +247,10 @@ class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderS
 class MenuItem extends StatefulWidget {
   final IconData icon;
   final String title;
-  final bool isSelected;
   final VoidCallback onTap;
   final bool isExpanded;
   final bool expanding;
+  final Pages page;
 
   const MenuItem({
     super.key,
@@ -258,7 +259,7 @@ class MenuItem extends StatefulWidget {
     required this.onTap,
     required this.isExpanded,
     required this.expanding,
-    this.isSelected = false,
+    required this.page
   });
 
   @override
@@ -271,7 +272,8 @@ class MenuItemState extends State<MenuItem> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return MouseRegion(
+    return Consumer(builder: (context, ref, child) { 
+      return MouseRegion(
       onEnter : (_) => setState(() => _containerColor = Color(0xFF212121)),
       onExit  : (_) => setState(() => _containerColor = Colors.transparent),
       child   : 
@@ -294,7 +296,7 @@ class MenuItemState extends State<MenuItem> {
                   children : [
                     Icon(
                       widget.icon,
-                      color : widget.isSelected ? colorScheme.primary : colorScheme.onSurfaceVariant,
+                      color : ref.watch(pageRiverpodProvider) == widget.page ? colorScheme.primary : colorScheme.onSurfaceVariant,
                       size  : 20,
                     ),
                     if (widget.isExpanded)
@@ -317,7 +319,7 @@ class MenuItemState extends State<MenuItem> {
                   ],
                 ),
               ),
-              if (widget.isSelected)
+              if (ref.watch(pageRiverpodProvider) == widget.page)
               Icon(
                 Icons.arrow_forward,
                 size  : 15,
@@ -327,6 +329,6 @@ class MenuItemState extends State<MenuItem> {
           ) 
         ),
       ),
-    );
+    ); },);
   }
 }
