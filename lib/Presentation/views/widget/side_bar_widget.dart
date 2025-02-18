@@ -24,7 +24,8 @@ class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderS
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return Consumer(builder: (context, ref, child) { return AnimatedContainer(
+    return Consumer(builder: (context, ref, child) { 
+      return AnimatedContainer(
       width    : isExpanded ? 265 : 95,
       curve    : Curves.easeInOut,
       duration : Duration(milliseconds: 300),
@@ -39,14 +40,10 @@ class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderS
             BoxDecoration(
               color        : colorScheme.surface,
               borderRadius : 
-              const BorderRadius.only(
-                topRight    : Radius.circular(20),
-                bottomRight : Radius.circular(20),
-              ),
-              boxShadow : const [
+              const BorderRadius.all(Radius.circular(20)),
+              boxShadow : [
                 BoxShadow(
-                  color        : Colors.black38,
-                  offset       : Offset(5, 0),
+                  color        : colorScheme.shadow,
                   blurRadius   : 10,
                   spreadRadius : 1,
                 ),
@@ -214,11 +211,11 @@ class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderS
                 decoration: BoxDecoration(
                   color: colorScheme.surface,
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  boxShadow: const [
+                  boxShadow: [
                     BoxShadow(
-                      color: Colors.black38,
+                      color        : colorScheme.shadow,
                       offset: Offset(5, 0),
-                      blurRadius: 10,
+                      blurRadius: 8,
                       spreadRadius: 1,
                     ),
                   ],
