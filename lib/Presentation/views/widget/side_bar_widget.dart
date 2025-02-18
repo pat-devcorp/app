@@ -40,8 +40,8 @@ class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderS
               color        : colorScheme.surface,
               borderRadius : 
               const BorderRadius.only(
-                topRight    : Radius.circular(30),
-                bottomRight : Radius.circular(30),
+                topRight    : Radius.circular(20),
+                bottomRight : Radius.circular(20),
               ),
               boxShadow : const [
                 BoxShadow(
@@ -155,7 +155,7 @@ class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderS
                         decoration : 
                         BoxDecoration(
                           color        : colorScheme.onSurface,
-                          borderRadius : BorderRadius.all(Radius.circular(30))
+                          borderRadius : BorderRadius.all(Radius.circular(20))
                         ),
                         child : 
                         Icon(
@@ -213,7 +213,7 @@ class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderS
                 height: 25,
                 decoration: BoxDecoration(
                   color: colorScheme.surface,
-                  borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
                   boxShadow: const [
                     BoxShadow(
                       color: Colors.black38,
