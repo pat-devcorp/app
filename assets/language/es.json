@@ -15,6 +15,7 @@
   "welcomeTo9780Bitcoin": "Bienvenido a 9780Bitcoin",
   "logout": "Cerrar sesión",
   "name": "Nombre",
+  "lastname": "Apellido",
   "email": "Correo",
   "register": "Registrar",
   "invalidEmail":"Correo inválido",
