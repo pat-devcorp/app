@@ -7,7 +7,7 @@ class ThemeRiverpod extends _$ThemeRiverpod {
   @override
   ThemeMode build() => ThemeMode.light;
   
-  void toggleTheme() {
+  void changeTheme() {
     state = state == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
   }
 }

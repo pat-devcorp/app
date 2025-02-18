@@ -73,7 +73,6 @@ class InputWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 
     return Column(
@@ -97,7 +96,7 @@ class InputWidget extends StatelessWidget {
           autofocus          : autofocus,
           textCapitalization : textCapitalization,
           textInputAction    : textInputAction,
-          style              : textStyle ?? textTheme.bodyMedium?.copyWith(color: Colors.black),
+          style: textStyle ?? GoogleFonts.nunito(fontSize: 16,color: Colors.black,),
           onChanged          : onChanged,
           onFieldSubmitted   : onFieldSubmitted,
           inputFormatters    : maxLength != null ? [LengthLimitingTextInputFormatter(maxLength)] : null,

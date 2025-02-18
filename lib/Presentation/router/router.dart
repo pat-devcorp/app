@@ -1,7 +1,9 @@
+import 'package:app/Presentation/riverpods/page_riverpod.dart';
 import 'package:app/Presentation/views/pages/client_list.dart';
 import 'package:app/Presentation/views/pages/home.dart';
 import 'package:app/Presentation/views/pages/transactions_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../Presentation/views/pages/login.dart';
@@ -40,9 +42,10 @@ class PageRouter {
   static const Duration duration = Duration(milliseconds: 300);
   static PageTransitionType defaultTransition = PageTransitionType.fade;
 
-  static void goToPage(BuildContext context,
-      {required Pages page, PageTransitionType? transition}) {
+  static void goToPage(BuildContext context, WidgetRef ref, {required Pages page, PageTransitionType? transition}) {
     final PageData? pageData = _pageMap[page];
+
+    ref.read(pageRiverpodProvider.notifier).changePage(page: page);
 
     if (pageData == null) {
       debugPrint('⚠️ Page not found: $page');
@@ -52,7 +55,7 @@ class PageRouter {
     final transitionType = transition ?? defaultTransition;
 
     pageData.unbound
-        ? pageData.pushOver(context, transitionType)
-        : pageData.push(context, transitionType);
+    ? pageData.pushOver(context, transitionType)
+    : pageData.push(context, transitionType);
   }
 }
