@@ -17,6 +17,8 @@ class UiLabels {
   final String name;
   final String email;
   final String register;
+  final String invalidEmail;
+  final String successfulRegister;
 
   UiLabels({
     required this.menuItemHome,
@@ -37,6 +39,8 @@ class UiLabels {
     required this.name,
     required this.email,
     required this.register,
+    required this.invalidEmail,
+    required this.successfulRegister,
   });
 
   factory UiLabels.fromJson(Map<String, dynamic> json) {
@@ -59,6 +63,9 @@ class UiLabels {
       name: json['name'] ?? 'name',
       email: json['email'] ?? 'email',
       register: json['register'] ?? 'register',
+      invalidEmail: json['invalidEmail'] ?? 'invalidEmail',
+      successfulRegister: json['successfulRegister'] ?? 'successfulRegister',
     );
   }
 }
+  

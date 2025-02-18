@@ -22,23 +22,20 @@ class ClientService {
     }
   }
 
-  Future<bool> registerClient(ClientModel client) async {
+  Future<bool> registerClients(List<ClientModel> clients) async {
     try {
       final response = await _dio.post(
-        _baseUrl,
-        data: client.toJson(),
+        'http://192.168.4.177:8080/api/client',
+        data: clients.map((client) => client.toJson()).toList(),
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
 
-      if (response.statusCode == 200) {
-        return true;
-      } else {
-        return false;
-      }
+      return response.statusCode == 200;
     } on DioException catch (e) {
       throw Exception('Error en la petición: ${e.message}');
     }
   }
+
 
   Future<void> deleteClient(int id) async {
     try {

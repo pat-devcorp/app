@@ -16,5 +16,7 @@
   "logout": "Cerrar sesión",
   "name": "Nombre",
   "email": "Correo",
-  "register": "Registrar"
+  "register": "Registrar",
+  "invalidEmail":"Correo inválido",
+  "successfulRegister":"Cliente registrado con éxito!"
 }
