@@ -1,10 +1,11 @@
-import 'package:app/Presentation/language/ui_labels.dart'; 
+import 'package:app/Presentation/language/ui_labels.dart';
+import 'package:app/Presentation/riverpods/theme_riverpod.dart'; 
 import 'package:app/Presentation/router/pages.dart';
 import 'package:app/Presentation/router/router.dart';
+import 'package:app/Presentation/views/widget/switch_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
-
-const Color greenColor = Color(0xFFaff21f);
 
 class SideBarWidget extends StatefulWidget {
   const SideBarWidget({super.key});
@@ -14,119 +15,234 @@ class SideBarWidget extends StatefulWidget {
 }
 
 class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderStateMixin {
-   int _selectedIndex = 0;
-   final UiLabels labels = GetIt.instance<UiLabels>();
+  int _selectedIndex = 0;
+  bool isExpanded = true;
+  bool expanding = false;
+  final UiLabels labels = GetIt.instance<UiLabels>();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 250,
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(30),
-          bottomRight: Radius.circular(30)
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black38,
-            offset: Offset(5, 0),
-            blurRadius: 10,
-            spreadRadius: 1,
-          ),
-        ],
-      ),
-      child: ListView(
-        children: [
-          _buildLogo(),
-          MenuItem(
-            icon: Icons.dashboard, 
-            title: labels.home,
-            isSelected: _selectedIndex == 1,
-            onTap: () {
-              PageRouter.goToPage(context, page: Pages.home);
-              setState(() => _selectedIndex = 1);
-            },
-          ),
-          MenuItem(
-            icon: Icons.person, 
-            title: labels.clientList,
-            isSelected: _selectedIndex == 2,
-            onTap: () {
-              PageRouter.goToPage(context, page: Pages.clientsList);
-              setState(() => _selectedIndex = 2);
-            }
-          ),
-          MenuItem(
-            icon: Icons.person_add_sharp, 
-            title: labels.registerClient,
-            isSelected: _selectedIndex == 3,
-            onTap: () {
-              PageRouter.goToPage(context, page: Pages.registerClient);
-              setState(() => _selectedIndex = 3);
-            }
-          ),
-          _buildUpdateCard(),
-          MenuItem(
-            icon: Icons.logout_outlined, 
-            title: labels.logout,
-            isSelected: _selectedIndex == 4,
-            onTap: () {
-              PageRouter.goToPage(context, page: Pages.login);
-              setState(() => _selectedIndex = 4);
-            }
-          ),
-          SizedBox(height: 20)
-        ],
-      ),
-    );
-  }
+    final colorScheme = Theme.of(context).colorScheme;
 
-  Widget _buildLogo() {
-    return SizedBox(
-      height: 100,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+    return Consumer(builder: (context, ref, child) { return AnimatedContainer(
+      width    : isExpanded ? 265 : 95,
+      curve    : Curves.easeInOut,
+      duration : Duration(milliseconds: 300),
+      child    : Stack(
         children: [
-          Icon(Icons.circle_outlined, color: greenColor, size: 35),
-          Text(" 9780Bitcoin", style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildUpdateCard() {
-    return Center(
-      child: Container(
-        padding: EdgeInsets.all(15),
-        margin: EdgeInsets.symmetric(vertical: 20),
-        decoration: BoxDecoration(
-          color: greenColor,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(Icons.update, size: 40, color: Colors.black),
-            SizedBox(height: 10),
-            Text("Nuevo P2P", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
-            Text("Descubre nuestro\nmercado", style: TextStyle(color: Colors.black54)),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.black, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text("Vamos   ", style: TextStyle(color: Color(0xFFF4F4F4))),
-                  Icon(Icons.arrow_forward, color: Color(0xFFF4F4F4), size: 15)
-                ],
+          AnimatedContainer(
+            curve      : Curves.easeInOut,
+            width      : isExpanded ? 250 : 80,
+            duration   : Duration(milliseconds: 300),
+            padding    : EdgeInsets.symmetric(vertical: 40),
+            decoration : 
+            BoxDecoration(
+              color        : colorScheme.surface,
+              borderRadius : 
+              const BorderRadius.only(
+                topRight    : Radius.circular(30),
+                bottomRight : Radius.circular(30),
               ),
-            )
-          ],
-        ),
+              boxShadow : const [
+                BoxShadow(
+                  color        : Colors.black38,
+                  offset       : Offset(5, 0),
+                  blurRadius   : 10,
+                  spreadRadius : 1,
+                ),
+              ],
+            ),
+            child : Column(
+              children : [
+                Expanded(
+                  child : Padding(
+                    padding : const EdgeInsets.symmetric(horizontal: 20),
+                    child   : Column(
+                      children : [
+                        Padding(
+                          padding : const EdgeInsets.only(bottom: 40),
+                          child   : Row(
+                            mainAxisAlignment : MainAxisAlignment.center,
+                            children : [
+                              Icon(
+                                Icons.circle_outlined,
+                                color : colorScheme.primary,
+                                size  : 35
+                              ),
+                              if (isExpanded)
+                              Flexible(
+                                child : 
+                                const Text(
+                                  " 9780Bitcoin", 
+                                  overflow : TextOverflow.ellipsis,
+                                  style    :
+                                  TextStyle(
+                                    fontSize   : 17,
+                                    fontWeight : FontWeight.w500
+                                  )
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        MenuItem(
+                          isSelected : _selectedIndex == 1,
+                          isExpanded : isExpanded,
+                          expanding  : expanding,
+                          title      : labels.home,
+                          icon       : Icons.dashboard, 
+                          onTap      : () {
+                            PageRouter.goToPage(context, page: Pages.home);
+                            setState(() => _selectedIndex = 1);
+                          },
+                        ),
+                        MenuItem(
+                          isSelected : _selectedIndex == 2,
+                          isExpanded : isExpanded,
+                          expanding  : expanding,
+                          title      : labels.clientList,
+                          icon       : Icons.person, 
+                          onTap      : () {
+                            PageRouter.goToPage(context, page: Pages.clientsList);
+                            setState(() => _selectedIndex = 2);
+                          }
+                        ),
+                        MenuItem(
+                          isSelected : _selectedIndex == 3,
+                          isExpanded : isExpanded,
+                          expanding  : expanding,
+                          title      : labels.registerClient,
+                          icon       : Icons.person_add_sharp, 
+                          onTap      : () {
+                            PageRouter.goToPage(context, page: Pages.registerClient);
+                            setState(() => _selectedIndex = 3);
+                          }
+                        ),
+                        MenuItem(
+                          isSelected : _selectedIndex == 4,
+                          isExpanded : isExpanded,
+                          expanding  : expanding,
+                          title      : labels.logout,
+                          icon       : Icons.logout_outlined, 
+                          onTap      : () {
+                            PageRouter.goToPage(context, page: Pages.login);
+                            setState(() => _selectedIndex = 4);
+                          }
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding : const EdgeInsets.symmetric(vertical: 40, horizontal: 10),
+                  child   : 
+                  SwitchWidget(
+                    icon       : ref.watch(themeRiverpodProvider) == ThemeMode.dark ? Icons.dark_mode_outlined : Icons.light_mode_outlined,
+                    label      : ref.watch(themeRiverpodProvider) == ThemeMode.dark ? "Modo oscuro" : "Modo claro",
+                    value      : ref.watch(themeRiverpodProvider) == ThemeMode.dark,
+                    onChanged  : (bool value) => ref.read(themeRiverpodProvider.notifier).toggleTheme(),
+                    isExpanded : isExpanded,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width  : 40,
+                        height : 40,
+                        decoration : 
+                        BoxDecoration(
+                          color        : colorScheme.onSurface,
+                          borderRadius : BorderRadius.all(Radius.circular(30))
+                        ),
+                        child : 
+                        Icon(
+                          Icons.person, 
+                          size  : 20,
+                          color : colorScheme.surface
+                        ),
+                      ),
+                      if (isExpanded)
+                      Flexible(
+                        child: Padding(
+                          padding : const EdgeInsets.only(left: 10),
+                          child   : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Ernesto Cuadros",
+                                overflow : TextOverflow.ellipsis,
+                                style    : 
+                                TextStyle(
+                                  fontSize : 13
+                                ),
+                              ),
+                              Padding(
+                                padding : const EdgeInsets.only(top: 2),
+                                child   : Text(
+                                  "Asistente de gerencia",
+                                  overflow : TextOverflow.ellipsis,
+                                  style    : 
+                                  TextStyle(
+                                    fontSize : 11,
+                                    color    : Colors.grey
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+          AnimatedPositioned(
+            duration : Duration(milliseconds: 300),
+            curve    : Curves.easeInOut,
+            left     : isExpanded ? 235 : 65,
+            top      : 88,
+            child    : 
+            Center(
+              child: Container(
+                width: 25,
+                height: 25,
+                decoration: BoxDecoration(
+                  color: colorScheme.surface,
+                  borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black38,
+                      offset: Offset(5, 0),
+                      blurRadius: 10,
+                      spreadRadius: 1,
+                    ),
+                  ],
+                ),
+                child :
+                IconButton(
+                  icon : Icon(isExpanded ? Icons.arrow_back_ios_rounded : Icons.arrow_forward_ios_rounded, size: 10),
+                  onPressed : () {
+                    setState(() {
+                      expanding = true;
+                      isExpanded = !isExpanded;
+                    });
+
+                    Future.delayed(Duration(milliseconds: 300), () {
+                      setState(() => expanding = false);
+                    });
+                  },
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
-    );
+    ); },);
   }
 }
 
@@ -135,13 +251,17 @@ class MenuItem extends StatefulWidget {
   final String title;
   final bool isSelected;
   final VoidCallback onTap;
+  final bool isExpanded;
+  final bool expanding;
 
   const MenuItem({
     super.key,
     required this.icon,
     required this.title,
-    this.isSelected = false,
     required this.onTap,
+    required this.isExpanded,
+    required this.expanding,
+    this.isSelected = false,
   });
 
   @override
@@ -149,38 +269,65 @@ class MenuItem extends StatefulWidget {
 }
 
 class MenuItemState extends State<MenuItem> {
-  Color _containerColor = Colors.transparent;
+  Color? _containerColor;
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return MouseRegion(
-      onEnter: (_) => setState(() => _containerColor = Theme.of(context).focusColor),
-      onExit: (_) => setState(() => _containerColor = Colors.transparent),
-      child: GestureDetector(
-        onTap: widget.onTap,
-        child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 20),
-          decoration: BoxDecoration(
-            color: _containerColor,
-            borderRadius: BorderRadius.circular(20),
+      onEnter : (_) => setState(() => _containerColor = Color(0xFF212121)),
+      onExit  : (_) => setState(() => _containerColor = Colors.transparent),
+      child   : 
+      GestureDetector(
+        onTap : widget.onTap,
+        child : 
+        Container(
+          margin     : const EdgeInsets.symmetric(vertical: 4),
+          padding    : EdgeInsets.symmetric(horizontal: widget.isExpanded && !widget.expanding ? 20 : 10, vertical: 10),
+          decoration : 
+          BoxDecoration(
+            color        : _containerColor,
+            borderRadius : BorderRadius.circular(20),
           ),
-          child: ListTile(
-            leading: Icon(
-              widget.icon,
-              color: widget.isSelected ? greenColor : null,
-              size: 20,
-            ),
-            title: Text(
-              widget.title,
-              style: const TextStyle(fontSize: 15),
-            ),
-            trailing: widget.isSelected
-            ? const Icon(
-              Icons.arrow_forward,
-              size: 15,
-            )
-          : null,
-          ),
+          child : Row(
+            crossAxisAlignment : CrossAxisAlignment.center,
+            children : [
+              Expanded(
+                child : Row(
+                  children : [
+                    Icon(
+                      widget.icon,
+                      color : widget.isSelected ? colorScheme.primary : colorScheme.onSurfaceVariant,
+                      size  : 20,
+                    ),
+                    if (widget.isExpanded)
+                    Flexible(
+                      child : 
+                      Padding(
+                        padding : const EdgeInsets.only(left: 10),
+                        child   : 
+                        Text(
+                          widget.title,
+                          overflow : widget.expanding ? TextOverflow.ellipsis : TextOverflow.clip,
+                          style    : 
+                          TextStyle(
+                            fontSize : 13,
+                            color    : colorScheme.onSurface
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              if (widget.isSelected)
+              Icon(
+                Icons.arrow_forward,
+                size  : 15,
+                color : colorScheme.primary,
+              )
+            ],
+          ) 
         ),
       ),
     );
