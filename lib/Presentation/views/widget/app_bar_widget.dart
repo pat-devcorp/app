@@ -38,6 +38,7 @@ class AppBarWidgetState extends State<AppBarWidget> with SingleTickerProviderSta
         ],
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           widget.tabs.isNotEmpty
           ? Row(
@@ -45,7 +46,19 @@ class AppBarWidgetState extends State<AppBarWidget> with SingleTickerProviderSta
               Text(tab.name)
             ).toList(),
           )
-          : Text("name de page")
+          : Text("name de page"),
+          Row(
+            children: [
+              IconButton(
+                onPressed: () {}, 
+                icon: Icon(Icons.refresh, size: 18, color: Theme.of(context).colorScheme.tertiary)
+              ),
+              IconButton(
+                onPressed: () {}, 
+                icon: Icon(Icons.filter_list, size: 18, color: Theme.of(context).colorScheme.primary)
+              ),
+            ],
+          )
         ],
       ),
     );
