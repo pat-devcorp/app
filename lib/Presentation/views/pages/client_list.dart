@@ -78,6 +78,7 @@ class _ClientListState extends State<ClientList> {
                   id: client.id, // O también int.parse(idController.text) si lo permites
                   name: nameController.text,
                   email: emailController.text,
+                  lastname: emailController.text,
                 );
 
                 try {

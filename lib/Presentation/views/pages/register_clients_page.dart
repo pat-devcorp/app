@@ -16,23 +16,26 @@ class RegisterClientsPage extends StatefulWidget {
 }
 
 class _RegisterClientsPageState extends State<RegisterClientsPage> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _nameController  = TextEditingController();
-  final ClientService _clientService           = ClientService();
-  final UiLabels labels                        = GetIt.instance<UiLabels>();
-  final _formKey                               = GlobalKey<FormState>();
-  final List<ClientModel> _clients             = [];
+  final TextEditingController _emailController     = TextEditingController();
+  final TextEditingController _nameController      = TextEditingController();
+  final TextEditingController _lastnameController  = TextEditingController();
+  final ClientService _clientService               = ClientService();
+  final UiLabels labels                            = GetIt.instance<UiLabels>();
+  final _formKey                                   = GlobalKey<FormState>();
+  final List<ClientModel> _clients                 = [];
 
   void _addClient() {
     if (_formKey.currentState!.validate()) {
       setState(() {
         _clients.add(ClientModel(
-          name  : _nameController.text,
-          email : _emailController.text,
+          name     : _nameController.text,
+          lastname : _lastnameController.text,
+          email    : _emailController.text,
         ));
 
         _nameController.clear();
         _emailController.clear();
+        _lastnameController.clear();
       });
     }
   }
@@ -103,12 +106,13 @@ class _RegisterClientsPageState extends State<RegisterClientsPage> {
                     crossAxisAlignment : CrossAxisAlignment.center,
                     children: [
                       CustomText(
-                        text  : labels.clients,
+                        text  : labels.register,
                         type  : TextType.title1,
                         color : Colors.green,
                       ),
                       const SizedBox(height: 20),
                       InputWidget(
+                        title      : "${labels.clients}:",
                         controller : _nameController,
                         label      : labels.name,
                         icon       : Icons.person,
@@ -118,8 +122,21 @@ class _RegisterClientsPageState extends State<RegisterClientsPage> {
                         },
                         textInputAction: TextInputAction.next,
                       ),
-                      const SizedBox(height: 15),
+                      const SizedBox(height: 10),
                       InputWidget(
+                        title      : "${labels.lastname}:",
+                        controller : _lastnameController,
+                        label      : labels.lastname,
+                        icon       : Icons.person_outline,
+                        validator  : (value) {
+                          if (value == null || value.isEmpty) return "Ingrese el apellido";
+                          return null;
+                        },
+                        textInputAction: TextInputAction.next,
+                      ),
+                      const SizedBox(height: 10),
+                      InputWidget(
+                        title        : "${labels.email}:",
                         controller   : _emailController,
                         label        : labels.email,
                         icon         : Icons.email,
@@ -162,17 +179,17 @@ class _RegisterClientsPageState extends State<RegisterClientsPage> {
   Widget _buildClientsTable() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.grey.shade300),
+        color        : Colors.white,
+        borderRadius : BorderRadius.circular(10),
+        border       : Border.all(color: Colors.grey.shade300),
       ),
       child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(10),
             child: CustomText(
-              text: "Clientes a registrar",
-              type: TextType.title2,
+              text : "Clientes a registrar",
+              type : TextType.title2,
             ),
           ),
           const Divider(),
@@ -181,15 +198,17 @@ class _RegisterClientsPageState extends State<RegisterClientsPage> {
             child: DataTable(
               columnSpacing: 20,
               columns: const [
-                DataColumn(label: CustomText(text: "Nombre", type: TextType.normal)),
-                DataColumn(label: CustomText(text: "Email", type: TextType.normal)),
+                DataColumn(label: CustomText(text: "Nombre",   type: TextType.normal)),
+                DataColumn(label: CustomText(text: "Apellido", type: TextType.normal)),
+                DataColumn(label: CustomText(text: "Email",    type: TextType.normal)),
                 DataColumn(label: CustomText(text: "Eliminar", type: TextType.normal)),
               ],
               rows: List.generate(
                 _clients.length,
                 (index) => DataRow(cells: [
-                  DataCell(CustomText(text: _clients[index].name, type: TextType.normal)),
-                  DataCell(CustomText(text: _clients[index].email, type: TextType.normal)),
+                  DataCell(CustomText(text: _clients[index].name,     type: TextType.normal)),
+                  DataCell(CustomText(text: _clients[index].lastname, type: TextType.normal)),
+                  DataCell(CustomText(text: _clients[index].email,    type: TextType.normal)),
                   DataCell(
                     IconButton(
                       icon: const Icon(Icons.delete, color: Colors.red),

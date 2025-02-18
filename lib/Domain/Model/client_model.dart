@@ -11,22 +11,26 @@ class ClientModel {
   int ? id;
   String name;
   String email;
+  String lastname;
 
   ClientModel({
     this.id,
     required this.name,
     required this.email,
+    required this.lastname,
   });
 
   factory ClientModel.fromJson(Map<String, dynamic> json) => ClientModel(
         id: json["id"],
         name: json["name"],
         email: json["email"],
+        lastname: json["lastname"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "email": email,
+        "lastname": lastname,
       };
 }
