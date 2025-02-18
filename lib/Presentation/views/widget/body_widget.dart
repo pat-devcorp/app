@@ -25,7 +25,10 @@ class _BodyWidgetState extends State<BodyWidget> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Row(
           children: [
-            SideBarWidget(),
+            Padding(
+              padding : const EdgeInsets.all(20),
+              child   : SideBarWidget(),
+            ),
             Expanded(
               child: Center(
                 child: StreamBuilder(
