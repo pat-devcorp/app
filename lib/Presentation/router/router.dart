@@ -23,14 +23,14 @@ class PageRouter {
       page: HomePage(),
       html: const HTMLData(route: '/home/'),
     ),
-    Pages.registerClient: PageData(
-      key: Pages.registerClient,
+    Pages.clients: PageData(
+      key: Pages.clients,
       unbound: false,
       page: RegisterClientPage(),
       html: const HTMLData(route: 'client/register/'),
     ),
-    Pages.clientsList: PageData(
-      key: Pages.clientsList,
+    Pages.transactions: PageData(
+      key: Pages.transactions,
       unbound: false,
       page: ClientList(),
       html: const HTMLData(route: '/client/list/'),

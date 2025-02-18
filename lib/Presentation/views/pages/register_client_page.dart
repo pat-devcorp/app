@@ -103,7 +103,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              labels.registerClient,
+                              labels.transactions,
                               style: TextStyle(
                                 fontSize: context.fontSizes[FontSize.headline4],
                                 fontWeight: FontWeight.bold,

@@ -1,6 +1,6 @@
 enum Pages {
   login,
   home,
-  clientsList,
-  registerClient
+  clients,
+  transactions
 }
