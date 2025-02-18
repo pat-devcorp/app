@@ -21,8 +21,7 @@ Future<void> main() async {
     throw Exception('Error loading .env file: $e');
   }
 
-  UiLabels labels =
-      await LabelLoader.loadLabels('es');
+  UiLabels labels = await LabelLoader.loadLabels('es');
 
   Bootstrap bootstrap = Bootstrap(
       appVersion: dotenv.get('APP_VERSION'), apiHost: dotenv.get('API_HOST'));

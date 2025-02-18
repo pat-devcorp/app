@@ -1,7 +1,7 @@
 enum Localization {
   spanish("es");
 
-  final String message;
+  final String value;
 
-  const Localization(this.message);
+  const Localization(this.value);
 }

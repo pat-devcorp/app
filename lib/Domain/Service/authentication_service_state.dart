@@ -5,7 +5,7 @@ enum AuthenticationServiceState {
   notCatch("Error Not Defined"),
   success("1");
 
-  final String message;
+  final String value;
 
-  const AuthenticationServiceState(this.message);
+  const AuthenticationServiceState(this.value);
 }

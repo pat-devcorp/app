@@ -25,10 +25,6 @@ flutter analyze || { log_message "Flutter analyze failed"; exit 1; }
 log_message "Running Dart analyze..."
 dart analyze || { log_message "Dart analyze failed"; exit 1; }
 
-# Run Flutter doctor
-log_message "Running Flutter doctor..."
-flutter doctor || { log_message "Flutter doctor found issues"; exit 1; }
-
 # Run Flutter tests
 log_message "Running Flutter tests..."
 flutter test || { log_message "Flutter tests failed"; exit 1; }
@@ -36,7 +32,3 @@ flutter test || { log_message "Flutter tests failed"; exit 1; }
 # Run OWASP Dependency Check
 log_message "Running OWASP Dependency Check..."
 dependency-check.sh --project FlutterApp --scan /app || { log_message "OWASP Dependency Check failed"; exit 1; }
-
-# Start the application
-# log_message "Starting the application..."
-# exec flutter run

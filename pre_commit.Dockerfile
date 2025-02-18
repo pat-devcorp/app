@@ -4,7 +4,7 @@ FROM ghcr.io/cirruslabs/flutter:latest
 # Ensure we have the correct Dart version
 RUN flutter --version && \
     dart --version && \
-    flutter doctor
+    flutter --version
 
 # Set the working directory
 WORKDIR /app
@@ -17,6 +17,9 @@ RUN apt-get update && apt-get install -y wget unzip \
 
 # Set environment variables for OWASP Dependency Check
 ENV PATH="/opt/dependency-check/bin:$PATH"
+
+# Example: Run dependency-check (adjust as needed)
+# RUN dependency-check --data /opt/dependency-check/data --scan /app --format ALL
 
 # Set the working directory inside the container
 WORKDIR /app

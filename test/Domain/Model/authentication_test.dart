@@ -10,8 +10,7 @@ void main() {
         'password': 'user001',
       };
 
-      final account =
-          FactoryAuthentication.fromJson(json);
+      final account = FactoryAuthentication.fromJson(json);
 
       expect(account.email, '12345');
       expect(account.password, 'user001');

@@ -1,19 +1,19 @@
 import 'dart:developer';
 
-import '../../Application/State/authentication_state.dart';
+import '../../Domain/Model/base_service_status.dart';
 import '../../Domain/Service/iauthentication_service.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AuthenticationUseCase extends StateNotifier<AuthenticationState> {
+class AuthenticationUseCase extends StateNotifier<BaseServiceStatus> {
   final IAuthenticationService _authenticationService;
   AuthenticationUseCase(this._authenticationService)
-      : super(AuthenticationState.unauthenticated);
+      : super(BaseServiceStatus.init);
 
   Future<void> login(
       BuildContext context, String username, String password) async {
-    state = AuthenticationState.loading;
+    state = BaseServiceStatus.loading;
 
     try {
       final response = await _authenticationService.login(
@@ -22,17 +22,17 @@ class AuthenticationUseCase extends StateNotifier<AuthenticationState> {
       );
 
       if (response.success) {
-        state = AuthenticationState.authenticated;
+        state = BaseServiceStatus.success;
       } else {
         log('⚠️ Authentication failed: ${response.data}');
-        state = AuthenticationState.error;
+        state = BaseServiceStatus.error;
       }
     } catch (e) {
-      state = AuthenticationState.error;
+      state = BaseServiceStatus.error;
     }
   }
 
   void logout() {
-    state = AuthenticationState.unauthenticated;
+    state = BaseServiceStatus.error;
   }
 }

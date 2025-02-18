@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
 
-enum SnackBarType {
+enum NotificationSnackBarType {
   success,
   error,
   info,
 }
 
 class NotificationSnackBar {
-  static void show(BuildContext context, String message, SnackBarType type) {
+  static void show(BuildContext context, String message, NotificationSnackBarType type) {
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
     Color backgroundColor;
     IconData icon;
+    Color textColor;
 
     switch (type) {
-      case SnackBarType.success:
-        backgroundColor = Theme.of(context).colorScheme.primary;
+      case NotificationSnackBarType.success:
+        backgroundColor = colorScheme.primary;
         icon = Icons.check_circle;
+        textColor = colorScheme.onPrimary;
         break;
-      case SnackBarType.error:
-        backgroundColor = Theme.of(context).colorScheme.error;
+      case NotificationSnackBarType.error:
+        backgroundColor = colorScheme.error;
         icon = Icons.error;
+        textColor = colorScheme.onError;
         break;
-      case SnackBarType.info:
-        backgroundColor = Colors.blue;
+      case NotificationSnackBarType.info:
+        backgroundColor = colorScheme.tertiary;
         icon = Icons.info;
+        textColor = colorScheme.onTertiary;
         break;
     }
 
@@ -30,17 +35,17 @@ class NotificationSnackBar {
       content: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: Colors.white),
+          Icon(icon, color: textColor),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
               message,
-              style: const TextStyle(color: Colors.white),
+              style: TextStyle(color: textColor),
               softWrap: true,
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.close, color: Colors.white),
+            icon: Icon(Icons.close, color: textColor),
             onPressed: () {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
             },
@@ -50,8 +55,7 @@ class NotificationSnackBar {
       backgroundColor: backgroundColor,
       duration: const Duration(seconds: 4),
       behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);

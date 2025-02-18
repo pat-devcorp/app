@@ -18,6 +18,8 @@ class AuthenticationService implements IAuthenticationService {
       {required String email, required String password}) async {
     final url = Uri.parse(apiHost + ApiRoute.login.message);
 
+    log('email: $email, password: $password');
+
     try {
       final response = await http.post(
         url,
@@ -29,9 +31,9 @@ class AuthenticationService implements IAuthenticationService {
       final AuthenticationServiceState state =
           _mapStatusCodeToState(response.statusCode);
 
-      log('🔄 Response: ${response.statusCode} - ${decodedBody['message'] ?? state.message}');
+      log('🔄 Response: ${response.statusCode} - ${decodedBody['message'] ?? state.value}');
       if (response.statusCode != 200) {
-        throw Exception(state.message);
+        throw Exception(state.value);
       }
 
       return Response(
