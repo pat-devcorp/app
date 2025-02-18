@@ -97,10 +97,10 @@ class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderS
                           isSelected : _selectedIndex == 2,
                           isExpanded : isExpanded,
                           expanding  : expanding,
-                          title      : labels.clientList,
+                          title      : labels.clients,
                           icon       : Icons.person, 
                           onTap      : () {
-                            PageRouter.goToPage(context, page: Pages.clientsList);
+                            PageRouter.goToPage(context, page: Pages.clients);
                             setState(() => _selectedIndex = 2);
                           }
                         ),
@@ -108,10 +108,10 @@ class SideBarWidgetState extends State<SideBarWidget> with SingleTickerProviderS
                           isSelected : _selectedIndex == 3,
                           isExpanded : isExpanded,
                           expanding  : expanding,
-                          title      : labels.registerClient,
+                          title      : labels.transactions,
                           icon       : Icons.person_add_sharp, 
                           onTap      : () {
-                            PageRouter.goToPage(context, page: Pages.registerClient);
+                            PageRouter.goToPage(context, page: Pages.transactions);
                             setState(() => _selectedIndex = 3);
                           }
                         ),
