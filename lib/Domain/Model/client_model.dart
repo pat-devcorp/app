@@ -12,7 +12,7 @@ class ClientModel {
   int? clientId;  // Puede ser nulo
   dynamic code;   // Puede ser nulo
   String name;   // Puede ser nulo
-  String? lastname; // Puede ser nulo
+  String lastname; // Puede ser nulo
   String email;  // Puede ser nulo
   List<TransactionList>? transactionList; // Puede ser nulo o una lista vacía
 
@@ -20,7 +20,7 @@ class ClientModel {
     this.clientId,
     this.code,
     required this.name,
-    this.lastname,
+    required this.lastname,
     required this.email,
     this.transactionList,
   });
