@@ -114,7 +114,7 @@ class _RegisterClientsPageState extends State<RegisterClientsPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               CustomText(
-                text: labels.registerClient,
+                text: labels.clients,
                 type: TextType.title1,
                 color: Colors.green,
               ),
