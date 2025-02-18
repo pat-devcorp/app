@@ -153,18 +153,18 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
                             SizedBox(height: context.dimensions[Dimension.large]),
 
                             _isLoading
-                                ? CircularProgressIndicator()
-                                : ElevatedButton(
-                                    onPressed: _submitForm,
-                                    child: Text(
-                                      labels.register,
-                                      style: TextStyle(
-                                        fontSize: context.fontSizes[FontSize.button],
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.blueAccent,
-                                      ),
+                              ? CircularProgressIndicator()
+                              : ElevatedButton(
+                                  onPressed: _submitForm,
+                                  child: Text(
+                                    labels.register,
+                                    style: TextStyle(
+                                      fontSize: context.fontSizes[FontSize.button],
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blueAccent,
                                     ),
                                   ),
+                                ),
                           ],
                         ),
                       ),
