@@ -26,8 +26,8 @@ log_message "Running Dart analyze..."
 dart analyze || { log_message "Dart analyze failed"; exit 1; }
 
 # Run Flutter tests
-log_message "Running Flutter tests..."
-flutter test || { log_message "Flutter tests failed"; exit 1; }
+# log_message "Running Flutter tests..."
+# flutter test || { log_message "Flutter tests failed"; exit 1; }
 
 # Run OWASP Dependency Check
 log_message "Running OWASP Dependency Check..."

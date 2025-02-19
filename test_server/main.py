@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 
 users = {
-    "test@example.com": "password123"
+    "test@example.com": "123"
 }
 
 def all_required_services_are_running():
@@ -35,7 +35,7 @@ def health_check():
     else:
         error_data = {
             "ok": 0,
-            "message": "Service Unavailable"
+            "message": "rest_service Unavailable"
         }
 
         return jsonify(error_data), 500
