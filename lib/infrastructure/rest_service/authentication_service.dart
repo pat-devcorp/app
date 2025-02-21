@@ -1,4 +1,4 @@
-import '../../domain/service/iauthentication_service.dart';
+import '../../domain/service/i_authentication_service.dart';
 import '../../domain/service/authentication_service_state.dart';
 import '../../domain/service/response.dart';
 import 'api_route.dart';
@@ -10,10 +10,13 @@ import 'dart:async';
 
 class AuthenticationService implements IAuthenticationService {
   final String apiHost;
-  final Duration timeout;
+  Duration timeoutInSeconds;
 
-  AuthenticationService(this.apiHost,
-      {this.timeout = const Duration(seconds: 5)});
+  AuthenticationService(this.apiHost, this.timeoutInSeconds);
+
+  void setTimeout(int durationInSeconds){
+    timeoutInSeconds = Duration(seconds: durationInSeconds);
+  }
 
   @override
   Future<Response> login(
@@ -30,7 +33,7 @@ class AuthenticationService implements IAuthenticationService {
         body: jsonEncode({'email': email, 'password': password}),
       )
           .timeout(
-        timeout,
+        timeoutInSeconds,
         onTimeout: () {
           log('⏳ Request timed out');
           throw TimeoutException('Request timed out');

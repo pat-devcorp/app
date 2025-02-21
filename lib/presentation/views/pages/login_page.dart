@@ -8,7 +8,7 @@ import '../../../domain/service/base_service_status.dart';
 import '../../language/ui_labels.dart';
 import '../../provider/authentication_provider.dart';
 import '../../router/pages.dart';
-import '../../router/router.dart';
+import '../../router/page_router.dart';
 import '../molecules/notification_snack_bar.dart';
 import '../organisms/custom_drop_down.dart';
 import '../style/dimensions.dart';

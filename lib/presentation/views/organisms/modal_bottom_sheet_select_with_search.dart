@@ -41,7 +41,7 @@ class _ModalBottomSheetSelectWithSearchState<T>
   @override
   Widget build(BuildContext context) {
     final colorScheme =
-        Theme.of(context).colorScheme; // Define ColorScheme here
+        Theme.of(context).colorScheme;
     final kOutline = colorScheme.outline;
     final kSurface = colorScheme.surface;
     final kOnSurface = colorScheme.onSurface;
@@ -55,7 +55,6 @@ class _ModalBottomSheetSelectWithSearchState<T>
       onTap: () {
         _showModalBottomSheet(
             context,
-            colorScheme,
             kOutline,
             kSurface,
             kOnSurface,
@@ -92,7 +91,6 @@ class _ModalBottomSheetSelectWithSearchState<T>
 
   void _showModalBottomSheet(
     BuildContext context,
-    ColorScheme colorScheme, // Add ColorScheme parameter
     Color outline,
     Color surface,
     Color onSurface,

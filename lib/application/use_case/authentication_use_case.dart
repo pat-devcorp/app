@@ -1,5 +1,5 @@
 import '../../domain/service/base_service_status.dart';
-import '../../domain/service/iauthentication_service.dart';
+import '../../domain/service/i_authentication_service.dart';
 
 import 'dart:developer';
 import 'package:flutter/material.dart';
@@ -20,12 +20,11 @@ class AuthenticationUseCase extends StateNotifier<BaseServiceStatus> {
         password: password,
       );
 
-      if (response.success) {
-        state = BaseServiceStatus.success;
-      } else {
+      if (!response.success) {
         log('⚠️ Authentication failed: ${response.data}');
         state = BaseServiceStatus.error;
       }
+      state = BaseServiceStatus.success;
     } catch (e) {
       state = BaseServiceStatus.error;
     }

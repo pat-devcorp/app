@@ -9,7 +9,7 @@ class ContextMenuFloatingActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme; // Get ColorScheme here
+    final colorScheme = Theme.of(context).colorScheme;
     final kPrimary = colorScheme.primary;
     final kOnPrimary = colorScheme.onPrimary;
     final kSurface = colorScheme.surface;
@@ -20,10 +20,10 @@ class ContextMenuFloatingActionButton extends StatelessWidget {
     return FloatingActionButton(
       onPressed: () {
         _showContextMenu(context, colorScheme, kSurface, kOnSurfaceVariant,
-            kOnSurface, kLayoutRadius); // Pass values
+            kOnSurface, kLayoutRadius);
       },
-      backgroundColor: kPrimary, // Use local variable
-      foregroundColor: kOnPrimary, // Use local variable
+      backgroundColor: kPrimary,
+      foregroundColor: kOnPrimary,
       child: const Icon(Icons.menu),
     );
   }

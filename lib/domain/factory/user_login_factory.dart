@@ -1,63 +1,27 @@
 import 'package:app/domain/except/domain_exception.dart';
 
 import '../../domain/model/user_login.dart';
+import '../validator/user_login_validator.dart';
 
 class UserLoginFactory {
   static UserLogin create({
     required String userName,
     required String password,
   }) {
-    isValid(userName, password);
 
-    return (userName: userName, password: password);
+    UserLogin instance = (userName: userName, password: password);
+    isValid(instance);
+    return instance;
   }
 
-  static void isValid(String userName, String password) {
+  static void isValid(UserLogin instance) {
     List<String> errs = [];
-    errs.addAll(isValidUserName(userName));
-    errs.addAll(isValidPassword(password));
+    errs.addAll(UserLoginValidator.isValidUserName(instance.userName));
+    errs.addAll(UserLoginValidator.isValidPassword(instance.password));
 
     if (errs.isNotEmpty) {
       throw DomainException(errs.join(','));
     }
-  }
-
-  static List<String> isValidUserName(String userName) {
-    List<String> errors = [];
-    if (userName.isEmpty) {
-      errors.add("Email cannot be empty");
-    } else {
-      final emailRegex =
-          RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
-      if (!emailRegex.hasMatch(userName)) {
-        errors.add("Invalid email format");
-      }
-    }
-    return errors;
-  }
-
-  static List<String> isValidPassword(String password) {
-    List<String> errors = [];
-    if (password.isEmpty) {
-      errors.add("Password cannot be empty");
-    } else {
-      if (password.length < 8) {
-        errors.add("Password must be at least 8 characters long");
-      }
-      if (!RegExp(r'[A-Z]').hasMatch(password)) {
-        errors.add("Password must contain at least one uppercase letter");
-      }
-      if (!RegExp(r'[a-z]').hasMatch(password)) {
-        errors.add("Password must contain at least one lowercase letter");
-      }
-      if (!RegExp(r'[0-9]').hasMatch(password)) {
-        errors.add("Password must contain at least one number");
-      }
-      if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(password)) {
-        errors.add("Password must contain at least one special character");
-      }
-    }
-    return errors;
   }
 
   static UserLogin fromJson(Map<String, dynamic> json) => (

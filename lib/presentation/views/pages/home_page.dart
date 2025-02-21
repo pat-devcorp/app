@@ -1,7 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
+import '../../router/page_router.dart';
+import '../../router/pages.dart';
 import '../organisms/context_menu_floating_action_button.dart';
 import '../organisms/modal_bottom_sheet_select_with_search.dart';
 import '../templates/user_card.dart';
@@ -33,6 +36,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         _user = UserCardItem(name: "Patrick Alonso F. Carpio");
       });
     });
+  }
+
+  void onSeeDetail() {
+      PageRouter.goToPage(context, page: Pages.settings, transition: PageTransitionType.rightToLeft);
   }
 
   @override
@@ -112,11 +119,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
           Center(
             child:
-                _user != null ? UserCard(user: _user!) : UserCard(user: null),
+                _user != null ? UserCard(user: _user!, onPressed: onSeeDetail) : UserCard(user: null),
           ),
           Center(
-              child: Text("It's sunny here",
-                  style: TextStyle(color: colorScheme.onSurface))),
+              child: ElevatedButton(
+                onPressed: () {
+                  PageRouter.goToPage(context, page: Pages.settings, transition: PageTransitionType.rightToLeft);
+                },
+                child: const Text('Go to Settings'),
+              ),
+          ),
         ],
       ),
       floatingActionButton: ContextMenuFloatingActionButton(

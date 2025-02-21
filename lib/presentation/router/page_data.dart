@@ -1,33 +1,48 @@
 import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'html_data.dart';
+import 'web/html_data.dart';
+import 'middlewate/middleware.dart';
 import 'pages.dart';
 
 class PageData {
-  final bool unbound;
   final Pages key;
+  final bool unbound;
   final Widget page;
   final HTMLData html;
+  final List<Middleware> preConditions;
+  final List<Middleware> postConditions;
 
-  const PageData({
-    this.unbound = false,
+  PageData({
     required this.key,
+    required this.unbound,
     required this.page,
-    this.html = const HTMLData(),
+    required this.html,
+    this.preConditions = const [],
+    this.postConditions = const [],
   });
 
-  void push(BuildContext context, PageTransitionType transition) =>
-      Navigator.of(context).push(
-        PageTransition(type: transition, child: page),
-      );
+  static const Duration duration = Duration(milliseconds: 300);
 
-  void pushOver(BuildContext context, PageTransitionType transition) =>
-      Navigator.of(context).pushAndRemoveUntil(
-        PageTransition(
-          type: transition,
-          child: page,
-        ),
-        (route) => false,
-      );
+  Future<void> push(BuildContext context, PageTransitionType transitionType) async {
+    await Navigator.push(
+      context,
+      PageTransition(
+        type: transitionType,
+        duration: duration,
+        child: page,
+      ),
+    );
+  }
+
+  Future<void> pushOver(BuildContext context, PageTransitionType transitionType) async {
+    await Navigator.pushReplacement(
+      context,
+      PageTransition(
+        type: transitionType,
+        duration: duration,
+        child: page,
+      ),
+    );
+  }
 }

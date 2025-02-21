@@ -1,4 +1,4 @@
-abstract class Client {
+abstract class IClient {
   String get name;
   String get lastFatherName;
   String get lastMotherName;

@@ -8,8 +8,8 @@ import 'setup_locator.dart';
 import 'domain/model/bootstrap.dart';
 import 'presentation/language/label_loader.dart';
 import 'presentation/language/ui_labels.dart';
-import 'presentation/views/style/theme.dart';
-import 'presentation/views/style/util.dart';
+//import 'presentation/views/style/theme.dart';
+//import 'presentation/views/style/util.dart';
 import 'presentation/views/pages/login_page.dart';
 
 Future<void> main() async {
@@ -23,8 +23,7 @@ Future<void> main() async {
 
   UiLabels labels = await LabelLoader.loadLabels('es');
 
-  Bootstrap bootstrap = Bootstrap(
-      appVersion: dotenv.get('APP_VERSION'), apiHost: dotenv.get('API_HOST'));
+  Bootstrap bootstrap = (appVersion: dotenv.get('APP_VERSION'), apiHost: dotenv.get('API_HOST'), requestTimeoutInSeconds: int.parse(dotenv.get('REQUEST_TIMEOUT')));
   setupLocator(bootstrap, labels);
 
   log('Bootstrap load: $bootstrap');
@@ -41,14 +40,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = View.of(context).platformDispatcher.platformBrightness;
-    TextTheme textTheme = createTextTheme(context, "JetBrains Mono", "Roboto");
-    MaterialTheme theme = MaterialTheme(textTheme);
-    final brightnessMode =
-        brightness == Brightness.light ? theme.light() : theme.dark();
+    //final brightness = View.of(context).platformDispatcher.platformBrightness;
+    //TextTheme textTheme = createTextTheme(context, "JetBrains Mono", "Roboto");
+    //final brightnessMode = brightness == Brightness.light ? theme.light() : theme.dark();
 
     return MaterialApp(
-      theme: brightnessMode,
+      //theme: brightnessMode,
       debugShowCheckedModeBanner: false,
       home: LoginPage(),
     );

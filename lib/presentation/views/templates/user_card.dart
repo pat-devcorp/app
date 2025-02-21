@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 
+import '../molecules/arrow_forward_button.dart';
 import '../style/dimensions.dart';
 
 class UserCard extends StatelessWidget {
   final UserCardItem? user;
+  final VoidCallback? onPressed;
 
-  const UserCard({super.key, required this.user});
+  const UserCard({super.key, required this.user, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class UserCard extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(kLayoutPadding),
         child: user != null
-            ? _buildUserContent(context, user!, kOutline, kPrimaryContainer,
+            ? _buildUserContent(context, user!, onPressed!, kOutline, kPrimaryContainer,
                 kOnPrimaryContainer, kOnSurface, kFormSpace, kDetailSpace)
             : _buildSkeleton(context, kOutline, kSurfaceContainer,
                 kOutlineVariant, kFormSpace),
@@ -43,6 +45,7 @@ class UserCard extends StatelessWidget {
   Widget _buildUserContent(
       BuildContext context,
       UserCardItem user,
+      VoidCallback onPressed,
       Color kOutline,
       Color kPrimaryContainer,
       Color kOnPrimaryContainer,
@@ -72,12 +75,15 @@ class UserCard extends StatelessWidget {
                 ),
               ),
             ),
-            Icon(Icons.arrow_forward_ios, size: 16, color: kOutline),
+            ArrowForwardButton(
+              onPressed: onPressed,
+              iconColor: kOutline,
+              iconSize: 16.0,
+            ),
           ],
         ),
         SizedBox(height: kDetailSpace),
         Divider(
-          // Add the Divider back
           height: 1,
           thickness: 1,
           color: kOutline,

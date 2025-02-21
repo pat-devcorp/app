@@ -1,6 +1,6 @@
-import '../model/client.dart';
+import '../model/i_client.dart';
 
-class ClientImpl implements Client {
+class ClientImpl implements IClient {
   @override
   final String name;
   @override
